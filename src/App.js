@@ -19,19 +19,17 @@ class App extends Component{
     return (
       <Router>
       <div>
-
+      <div style={{marginLeft:'14%'}}>
       <Link to="/sos"><button className="links">SoS</button></Link>
       <Link to="/userProfile"><button className="links">userProfile</button></Link>
       <Link to="/register"><button className="links">register</button></Link>
       <Link to="/emergency"><button className="links">emergency</button></Link>
-
-
+      </div>
+      <hr></hr>
       <Route path="/register" exact render={() => <Register />} />
       <Route path="/sos" exact render={() => <Sos />} />
       <Route path="/userProfile" exact render={() => <UserProfile />} />
       <Route path="/emergency" exact render={() => <Emergency />} />
-
->>>>>>> master
       </div>
       </Router>
     )

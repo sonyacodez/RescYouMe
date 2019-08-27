@@ -3,6 +3,8 @@ const app = express()
 const api = require( './server/routes/api' )
 const bodyParser = require('body-parser')
 const mongoose = require ('mongoose')
+require('dotenv').config()
+
 // const webpush = require('web-push');
 
 // const publicVapidKey = process.env.PUBLIC_VAPID_KEY;

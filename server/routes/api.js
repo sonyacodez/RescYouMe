@@ -9,7 +9,7 @@ router.get('/users', function (req, res) {
     })
 })
 
-router.get('/emergencyContacts/:id', function (req, res) {
+router.get('/userContacts/:id', function (req, res) {
     let id = req.params.id
     User.findOne({ _id: id })
         .populate('emergencyContacts')
@@ -18,8 +18,22 @@ router.get('/emergencyContacts/:id', function (req, res) {
         })
 })
 
+// router.post('/subscribe', (req, res) => {
+//     const subscription = req.body;
+//     res.status(201).json({});
+//     const payload = JSON.stringify({ title: 'test' });
+  
+//     console.log(subscription);
+  
+//     webpush.sendNotification(subscription, payload).catch(error => {
+//       console.error(error.stack);
+//     });
+//   });
 
-router.put('/userEmergencyContacts', function (req, res) {
+//   app.use(require('express-static')('./'));
+
+
+router.put('/newUserContact', function (req, res) {
     let id = req.body._id
     let contact = new Contact(req.body.contact)
     contact.save()

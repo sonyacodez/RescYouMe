@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-// import Register from './components/Register';
-// import EmergencyContacts from './components/EmergencyContacts';
+import Register from './components/Register/SignUp.js';
+// import EmergencyContacts from './components/UserProfile';
 import Sos from './components/Sos/Sos';
 import UserProfile from './components/UserProfile/UserProfile'
 import Emergency from './components/Emergency/Emergency'
@@ -20,6 +20,7 @@ class App extends Component{
     return (
       <Router>
       <div>
+
       <Link to="/sos"><button className="links">SoS</button></Link>
       <Link to="/userProfile"><button className="links">userProfile</button></Link>
       <Link to="/register"><button className="links">register</button></Link>
@@ -31,6 +32,7 @@ class App extends Component{
       <Route path="/userProfile" exact render={() => <UserProfile />} />
       <Route path="/emergency" exact render={() => <Emergency />} />
 
+>>>>>>> master
       </div>
       </Router>
     )

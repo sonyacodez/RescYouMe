@@ -18,7 +18,7 @@ class App extends Component{
         <Register />
         <EmergencyContacts />
         <Sos />
-        {/* <UserProfile /> */}
+        <UserProfile />
       </div>
     )
   }

@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import axios from 'axios';
+
 
 class SignUp extends Component {
     constructor() {
@@ -7,11 +9,9 @@ class SignUp extends Component {
         }
     }
 
-    addNewUser = () => {
-        axios.post(`http://localhost:5000/addUser`, this.state)
-            .then(res => {
-                console.log(res.data);
-            })
+    addUserData = async () => {
+        let result = await axios.post(`http://localhost:5000/user`,this.state)
+        console.log(result)
     }
 
     saveUserData = (event) => {
@@ -19,7 +19,6 @@ class SignUp extends Component {
             [event.target.name]: event.target.value
         })
     }
-
 
     render() {
         return (

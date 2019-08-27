@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import Register from './components/Register';
-import EmergencyContacts from './components/UserProfile';
+import Register from './components/Register/SignUp.js';
+// import EmergencyContacts from './components/UserProfile';
 import Sos from './components/Sos/Sos';
 // import UserProfile from './components/UserProfile'
 // import Emergency from './components/'
@@ -17,7 +17,7 @@ class App extends Component{
   render(){
     return (
       <div>
-        {/* <Register /> */}
+        <Register />
         {/* <EmergencyContacts /> */}
         <Sos />
         {/* <Emergency /> */}

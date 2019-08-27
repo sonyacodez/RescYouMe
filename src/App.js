@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import Register from './components/Register';
 import EmergencyContacts from './components/UserProfile';
 import Sos from './components/Sos/Sos';
-import UserProfile from './components/UserProfile'
-import Emergency from './components/Emergency'
+// import UserProfile from './components/UserProfile'
+// import Emergency from './components/'
+
 
 class App extends Component{
   constructor(){
@@ -16,10 +17,10 @@ class App extends Component{
   render(){
     return (
       <div>
-        <Register />
-        <EmergencyContacts />
+        {/* <Register /> */}
+        {/* <EmergencyContacts /> */}
         <Sos />
-        <Emergency />
+        {/* <Emergency /> */}
         {/* <UserProfile /> */}
       </div>
     )

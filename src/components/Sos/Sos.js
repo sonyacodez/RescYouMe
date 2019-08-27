@@ -3,6 +3,7 @@ import { GoogleApiWrapper, InfoWindow, Marker } from 'google-maps-react';
 import CurrentLocation from './Map';
 import Address from './Address'
 
+
 export class Sos extends Component {
   state = {
     showingInfoWindow: false,

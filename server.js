@@ -3,6 +3,13 @@ const app = express()
 const api = require( './server/routes/api' )
 const bodyParser = require('body-parser')
 const mongoose = require ('mongoose')
+// const webpush = require('web-push');
+
+// const publicVapidKey = process.env.PUBLIC_VAPID_KEY;
+// const privateVapidKey = process.env.PRIVATE_VAPID_KEY;
+
+// // Replace with your email
+// webpush.setVapidDetails('hadanyg@gmail.com', publicVapidKey, privateVapidKey);
 
 mongoose.connect("mongodb://localhost/secureDB", { useNewUrlParser: true })
 
@@ -19,7 +26,9 @@ app.use('/', api)
 
 
 
-let port = process.env.PORT || 5000
+
+
+let port = process.env.PORT || 4000
 
 app.listen(port, function(){
     console.log(`Running on port ${port}`)

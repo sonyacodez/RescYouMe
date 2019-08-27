@@ -3,7 +3,6 @@ import Register from './components/Register';
 import EmergencyContacts from './components/EmergencyContacts';
 import Sos from './components/Sos/Sos';
 import UserProfile from './components/UserProfile'
-import Emergency from './components/UserProfile'
 
 class App extends Component{
   constructor(){
@@ -19,7 +18,6 @@ class App extends Component{
         <Register />
         <EmergencyContacts />
         <Sos />
-        <Emergency />
         {/* <UserProfile /> */}
       </div>
     )

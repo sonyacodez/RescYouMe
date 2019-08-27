@@ -3,8 +3,8 @@ import PhoneNumber from './PhoneNumber'
 import apiClient from '../../apiClient'
 import { observer, inject } from 'mobx-react';
 
-// @inject('UserStore')
-// @observer
+@inject('UserStore')
+@observer
 class EmergencyContacts extends Component {
     constructor(){
         super()
@@ -19,7 +19,7 @@ class EmergencyContacts extends Component {
         this.setState({ contacts })
     };
 
-    updateContactKeys = e => this.props.updateUserKeys(e);
+    updateContactKeys = e => this.setState({ [e.target.name]: e.target.value });
 
     addNewContact = async() => {
         await apiClient.addUserContact(this.state.name, this.state.phoneNumber)

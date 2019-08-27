@@ -33,9 +33,9 @@ router.get('/userContacts/:id', function (req, res) {
 //   app.use(require('express-static')('./'));
 
 
-router.put('/newUserContact', function (req, res) {
-    let id = req.body._id
-    let contact = new Contact(req.body.contact)
+router.post('/newUserContact/:id', function (req, res) {
+    let id = req.params.id
+    let contact = new Contact(req.body)
     contact.save()
     User.findOne({_id: id}).exec(function (err, user) {
         user.emergencyContacts.push(contact)

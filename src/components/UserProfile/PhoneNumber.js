@@ -4,21 +4,22 @@ import apiClient from '../../apiClient'
 class PhoneNumber extends Component {
     constructor(){
         super()
-        this.state = {
-            phoneNumber: 0
-        }
+        this.state = { phoneNumber: 0 }
     }
-    changeUserContactNumber = async () => {
+    changeUserContactNumber = async() => {
         const c = this.props.contact
         await apiClient.changeUserContactNumber(c.name, c.phoneNumber)
         await apiClient.getAllContacts()
     };
+    deleteUserContact = async() => {
+        return await this.props.deleteUserContact(this.props.contact._id)
+    }
     render() {
         const c = this.props.contact
         return (
             <div>
-                Hi, I'm the phone number component.
-                <span>{c.name}</span>
+                <button onClick={this.deleteUserContact}><strong>X</strong></button>
+                <span><strong> {c.name}: </strong></span>
                 <span>{c.phoneNumber}</span>
             </div>
         )

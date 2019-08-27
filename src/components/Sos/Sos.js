@@ -29,6 +29,7 @@ export class Sos extends Component {
   render() {
     return (
         <div>
+            <div>
       <CurrentLocation centerAroundCurrentLocation google={this.props.google}>
         <Marker onClick={this.onMarkerClick} name={'current location'} />
         <Marker position={{ lat: 32.055568, lng: 34.756521}} />
@@ -42,7 +43,10 @@ export class Sos extends Component {
           </div>
         </InfoWindow>
       </CurrentLocation>
+      </div>
+      <div>
       <Address />
+      </div>
       </div>
     );
   }

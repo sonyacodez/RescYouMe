@@ -38,9 +38,10 @@ class Address extends Component {
 
     render() {
         return (
-            <div>
-              {this.state.Address}
-            </div>
+              <div>
+                 <span>distress call at:</span><br></br>
+                 {this.state.Address}
+              </div>
         )
     }
 }

@@ -1,15 +1,17 @@
-/* eslint-disable no-unused-expressions */
-import { observable, computed } from "mobx";
+import { observable, computed, action } from "mobx";
 import apiClient from "../apiClient"
 
 class UserStore {
-    @observable userLocation = {
+    @observable helperLocation = {
         latitude: 0,
         longitude: 0
     }
-    @observable contactList = apiClient.getAllContacts()
+    @observable victimLocation = {
+        latitude: 0,
+        longitude: 0
+    }
 
-    @computed get numContacts() { return this.contactList.length };
+    @action updateUserKeys = e => this.setState({ [e.target.name]: e.target.value });
 }
 
 export default new UserStore()

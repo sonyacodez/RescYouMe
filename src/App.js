@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 // import EmergencyContacts from './components/EmergencyContacts';
 import Sos from './components/Sos/Sos';
 // import UserProfile from './components/UserProfile'
-// import Emergency from './components/'
+import EmergencyContacts from './components/UserProfile/EmergencyContacts'
 
 
 class App extends Component{
@@ -18,7 +18,6 @@ class App extends Component{
     return (
       <div>
         {/* <Register /> */}
-        {/* <EmergencyContacts /> */}
         <Sos />
         {/* <Emergency /> */}
         {/* <UserProfile /> */}

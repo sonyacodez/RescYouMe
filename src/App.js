@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 // import Register from './components/Register';
 // import EmergencyContacts from './components/EmergencyContacts';
 import Sos from './components/Sos/Sos';
-// import UserProfile from './components/UserProfile'
-import EmergencyContacts from './components/UserProfile/EmergencyContacts'
+import UserProfile from './components/UserProfile/UserProfile'
 
 
 class App extends Component{
@@ -20,7 +19,7 @@ class App extends Component{
         {/* <Register /> */}
         <Sos />
         {/* <Emergency /> */}
-        {/* <UserProfile /> */}
+        <UserProfile />
       </div>
     )
   }

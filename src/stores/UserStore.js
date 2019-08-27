@@ -1,7 +1,7 @@
-import { observable, computed, action } from "mobx";
-import apiClient from "../apiClient"
+import { observable, action } from "mobx";
 
 class UserStore {
+    @observable currentUser = { name: "Sonya" }
     @observable helperLocation = {
         latitude: 0,
         longitude: 0

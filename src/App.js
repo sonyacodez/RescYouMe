@@ -5,7 +5,7 @@ import Sos from './components/Sos/Sos';
 import UserProfile from './components/UserProfile/UserProfile'
 import Emergency from './components/Emergency/Emergency'
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
-
+// import Register from './components/Register';
 
 class App extends Component{
   constructor(){

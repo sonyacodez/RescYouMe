@@ -9,7 +9,7 @@ class ApiClient {
         let data = await axios.get(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=${this.key}`)
         return  data;
     };
-    getAllContacts = async () => await axios.get(`${ this.URLname }/userContacts`);
+    getAllContacts = async () => await axios.get(`${this.URLname}/userContacts`);
 
     deleteUserContact = async(name) => {
         return await axios.delete(`${this.URLname}/deleteUserContact/${name}`)

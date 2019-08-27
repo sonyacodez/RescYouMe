@@ -17,6 +17,7 @@ class PhoneNumber extends Component {
         const c = this.props.contact
         return (
             <div>
+                Hi, I'm the phone number component.
                 <span>{c.name}</span>
                 <span>{c.phoneNumber}</span>
             </div>

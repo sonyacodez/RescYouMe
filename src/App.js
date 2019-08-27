@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Register from './components/Register';
-import EmergencyContacts from './components/EmergencyContacts';
+import EmergencyContacts from './components/UserProfile';
 import Sos from './components/Sos/Sos';
 import UserProfile from './components/UserProfile'
 import Emergency from './components/Emergency'

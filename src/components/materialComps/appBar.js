@@ -32,7 +32,7 @@ export default function ButtonAppBar() {
         <Toolbar>
             <SwipeableTemporaryDrawer />
           <Typography style={{marginLeft:"70px"}}variant="h5" className={classes.title}>
-            Secure App
+            RescYouMe
           </Typography>
         </Toolbar>
       </AppBar>

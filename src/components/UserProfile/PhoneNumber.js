@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import HighlightOffSharpIcon from '@material-ui/icons/HighlightOffSharp'
 
 class PhoneNumber extends Component {
     constructor(){
@@ -26,10 +27,10 @@ class PhoneNumber extends Component {
     render() {
         const c = this.props.contact
         return (
-            <div>
-                <button onClick={this.deleteUserContact}><strong>X</strong></button>
-                <span><strong> {c.name}: </strong></span>
-                {this.state.showInput ? <input ref={this.focusInput} name="phoneNumber" value={this.state.phoneNumber} onChange={this.updateContactKeys} onKeyPress={this.updateUserContactNumber} type="tel"/> : <span onClick={this.showInput} >{c.phoneNumber}</span>}
+            <div style={{borderWidth: "5px", borderStyle:"groove"}}>
+                <HighlightOffSharpIcon style={{marginTop:"5px"}} onClick={this.deleteUserContact}></HighlightOffSharpIcon>
+                <span style={{marginBottom:"5px", color:"beige"}}><strong> {c.name}: </strong></span>
+                {this.state.showInput ? <input ref={this.focusInput} name="phoneNumber" value={this.state.phoneNumber} onChange={this.updateContactKeys} onKeyPress={this.updateUserContactNumber} type="tel"/> : <span style={{color:"beige"}}onClick={this.showInput} >{c.phoneNumber}</span>}
             </div>
         )
     }

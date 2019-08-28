@@ -6,9 +6,9 @@ const Contact = require('../models/contact')
 router.get('/users', (req,res) => User.find({}).exec((err,data) => res.send(data)));
 
 router.post('/user', (req,res) => {
-    let client = new User(req.body)
-    client.save()
-    res.end()
+    let newUser = new User(req.body)
+    newUser.save()
+    User.findOne({ name: "Keren" }, (err,user) => res.send(user));
 });
 
 router.get('/userContacts/:id', (req,res) => {

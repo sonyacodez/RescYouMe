@@ -38,13 +38,14 @@ class EmergencyContacts extends Component {
         await apiClient.changeUserContactNumber(id, phoneNumber)
         await this.getAllContacts()
     };
+
     render() {
         const contact = this.state.contacts.data
         return (
             <div>
                 <div id="userPhoneNumbers">
                     {contact ? contact.map(c => <PhoneNumber 
-                                                key={c._id} 
+                                                key={c._id}
                                                 contact={c} 
                                                 deleteUserContact={this.deleteUserContact} 
                                                 changeUserContactNumber={this.changeUserContactNumber} />) : null}

@@ -6,11 +6,13 @@ import UserProfile from './components/UserProfile/UserProfile'
 import Emergency from './components/Emergency/Emergency'
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
 // import Register from './components/Register';
-
+import '../src/styles/style.css'
 //Material UI
 import AppBar from '@material-ui/core/AppBar';
 import Button from '@material-ui/core/Button';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import ButtonAppBar from './components/materialComps/appBar'
+
 
 const theme = createMuiTheme(
   {
@@ -33,18 +35,10 @@ class App extends Component {
   render() {
     return (
       <Router>
+        <ButtonAppBar />
         <MuiThemeProvider theme={theme}>
-          <AppBar position="static">
-    
-              <div style={{ marginLeft: '10%' }}>
-                {/* <Button><Link className="links" to="/sos">SoS</Link></Button> */}
-                <Button><Link className="links" to="/userProfile">userProfile</Link></Button>
-                <Button><Link className="links" to="/register">register</Link></Button>
-                <Button><Link className="links" to="/emergency">emergency</Link></Button>
-              </div>
-      </AppBar>
+          <AppBar position="static"></AppBar>
         </MuiThemeProvider>
-          <hr></hr>
           <Route path="/register" exact render={() => <Register />} />
           <Route path="/sos" exact render={() => <Sos />} />
           <Route path="/userProfile" exact render={() => <UserProfile />} />

@@ -6,8 +6,8 @@ class CallPolice extends Component {
   render(){
     return(
         <div style={{marginTop:"60px", marginLeft:"10%"}}>
-         <PhoneIcon style={{fontSize:"4em", marginBottom:"10px"}}/>
-         <a style={{ marginLeft:"-60px", color:"black", textDecorationLine:"none"}} href="tel:+972542833939">Call Police!</a>
+         <PhoneIcon style={{color:"#5BC0BE",fontSize:"4em", marginBottom:"10px"}}/>
+         <a style={{ marginLeft:"-60px", color:"#5BC0BE", textDecorationLine:"none"}} href="tel:+972542833939">Call Police!</a>
         </div>
     );
  }

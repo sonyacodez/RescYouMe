@@ -9,6 +9,6 @@ const store = {UserStore}
 
 ReactDOM.render(<Provider {...store}><App /></Provider>, document.getElementById('root'));
 
-serviceWorker.unregister();
+serviceWorker.register();
 
 

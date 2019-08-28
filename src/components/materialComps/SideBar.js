@@ -48,7 +48,7 @@ export default function SwipeableTemporaryDrawer() {
     >
       <List>
           <ListItem>
-              <h2>SecureMe</h2>
+              <h2>RescYouMe</h2>
           </ListItem>
           <Divider />
           <ListItem style={{marginTop:"20px"}}>

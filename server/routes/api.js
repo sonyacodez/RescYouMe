@@ -5,6 +5,12 @@ const Contact = require('../models/contact')
 
 router.get('/users', (req,res) => User.find({}).exec((err,data) => res.send(data)));
 
+router.post('/user', (req,res) => {
+    let client = new User(req.body)
+    client.save()
+    res.end()
+});
+
 router.get('/userContacts/:id', (req,res) => {
     User.findOne({ _id: req.params.id })
         .populate('emergencyContacts')
@@ -21,13 +27,13 @@ router.post('/newUserContact/:id', (req,res) => {
     })
 });
 
-router.post('/user', (req,res) => {
-    let client = new User(req.body)
-    client.save()
-    res.end()
-});
+router.put("/changeUserContactNumber/:id", (req,res) => {
+    Contact.findOneAndUpdate({ _id: req.params.id }, req.body, (err,body) => res.end())
+})
 
-router.delete('/deleteUserContact/:id', (req,res) => Contact.findOneAndRemove({ _id: req.params.id }, (err,body) => res.end()));
+router.delete('/deleteUserContact/:id', (req,res) => {
+    Contact.findOneAndRemove({ _id: req.params.id }, (err,body) => res.end())
+});
 
 // router.post('/subscribe', (req, res) => {
 //     const subscription = req.body;

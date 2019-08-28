@@ -18,9 +18,8 @@ class PhoneNumber extends Component {
 
     changeUserContactNumber = async(e) => {
         if(e.which === 13){
-            const p = this.props
             this.setState({ showInput: false })
-            return await p.changeUserContactNumber(p.contact._id, p.contact.phoneNumber)
+            return await this.props.changeUserContactNumber(this.props.contact._id, this.state.phoneNumber)
         }
     };
 

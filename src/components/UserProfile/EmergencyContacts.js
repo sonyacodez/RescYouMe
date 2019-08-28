@@ -44,11 +44,9 @@ class EmergencyContacts extends Component {
         return (
             <div>
                 <div id="userPhoneNumbers">
-                    {contact ? contact.map(c => <PhoneNumber 
-                                                key={c._id}
-                                                contact={c} 
-                                                deleteUserContact={this.deleteUserContact} 
-                                                changeUserContactNumber={this.changeUserContactNumber} />) : null}
+                    {contact ? contact.map(c => 
+                        <PhoneNumber key={c._id} contact={c} deleteUserContact={this.deleteUserContact} changeUserContactNumber={this.changeUserContactNumber} /> 
+                    ) : null}
                 </div>
                 <div id="addForm">
                     <div>Name: 

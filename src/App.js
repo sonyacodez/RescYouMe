@@ -37,7 +37,7 @@ class App extends Component {
           <AppBar position="static">
     
               <div style={{ marginLeft: '10%' }}>
-                <Button><Link className="links" to="/sos">SoS</Link></Button>
+                {/* <Button><Link className="links" to="/sos">SoS</Link></Button> */}
                 <Button><Link className="links" to="/userProfile">userProfile</Link></Button>
                 <Button><Link className="links" to="/register">register</Link></Button>
                 <Button><Link className="links" to="/emergency">emergency</Link></Button>

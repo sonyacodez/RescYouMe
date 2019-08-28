@@ -50,4 +50,6 @@ router.post('/user', function (req, res) {
     res.end()
 })
 
+router.delete('/deleteUserContact/:id', (req,res) => Contact.findOneAndRemove({ _id: req.params.id }, (err,body) => res.end()));
+
 module.exports = router

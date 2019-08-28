@@ -14,30 +14,40 @@ class EmergencyContacts extends Component {
             phoneNumber: 0
         }
     }
-    componentDidMount = async() => {
+
+    getAllContacts = async() => {
         const contacts = await apiClient.getAllContacts()
         this.setState({ contacts })
     };
+
+    componentDidMount = async() => await this.getAllContacts();
 
     updateContactKeys = e => this.setState({ [e.target.name]: e.target.value });
 
     addNewContact = async() => {
         await apiClient.addUserContact(this.state.name, this.state.phoneNumber)
-        let contacts = await apiClient.getAllContacts()
-        this.setState({ contacts })
+        await this.getAllContacts()
     };
+    
     deleteUserContact = async(id) => {
         await apiClient.deleteUserContact(id)
-        let contacts = await apiClient.getAllContacts()
-        this.setState({ contacts })
-    }
+        await this.getAllContacts();
+    };
+
+    changeUserContactNumber = async(id, phoneNumber) => {
+        await apiClient.changeUserContactNumber(id, phoneNumber)
+        await this.getAllContacts()
+    };
     render() {
         const contact = this.state.contacts.data
         return (
             <div>
                 <div id="userPhoneNumbers">
-                    {console.log(contact)}
-                    {contact ? contact.map(c => <PhoneNumber key={c._id} contact={c} deleteUserContact={this.deleteUserContact}/>) : null}
+                    {contact ? contact.map(c => <PhoneNumber 
+                                                key={c._id} 
+                                                contact={c} 
+                                                deleteUserContact={this.deleteUserContact} 
+                                                changeUserContactNumber={this.changeUserContactNumber} />) : null}
                 </div>
                 <div id="addForm">
                     <div>Name: 

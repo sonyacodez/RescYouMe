@@ -1,9 +1,16 @@
 import React, { Component } from 'react';
+import Help from './Help';
+import CallPolice from './CallPolice';
+import PlayRingtone from './PlayRingtone';
 
 class Emergency extends Component {
   render(){
     return(
-        <div></div>
+        <div>
+          <Help />
+          <CallPolice />
+          <PlayRingtone />
+        </div>
     );
  }
 }

@@ -3,7 +3,7 @@ import Register from './components/Register/SignUp.js';
 // import EmergencyContacts from './components/UserProfile';
 import Sos from './components/Sos/Sos';
 import UserProfile from './components/UserProfile/UserProfile'
-import Emergency from './components/Emergency/Help'
+import Emergency from './components/Emergency/Emergency'
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
 // import Register from './components/Register';
 

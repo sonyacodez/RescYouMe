@@ -16,10 +16,10 @@ class PhoneNumber extends Component {
 
     deleteUserContact = async() => await this.props.deleteUserContact(this.props.contact._id);
 
-    changeUserContactNumber = async(e) => {
+    updateUserContactNumber = async(e) => {
         if(e.which === 13){
             this.setState({ showInput: false })
-            return await this.props.changeUserContactNumber(this.props.contact._id, this.state.phoneNumber)
+            return await this.props.updateUserContactNumber(this.props.contact._id, this.state.phoneNumber)
         }
     };
 
@@ -29,7 +29,7 @@ class PhoneNumber extends Component {
             <div>
                 <button onClick={this.deleteUserContact}><strong>X</strong></button>
                 <span><strong> {c.name}: </strong></span>
-                {this.state.showInput ? <input ref={this.focusInput} name="phoneNumber" value={this.state.phoneNumber} onChange={this.updateContactKeys} onKeyPress={this.changeUserContactNumber} type="tel"/> : <span onClick={this.showInput} >{c.phoneNumber}</span>}
+                {this.state.showInput ? <input ref={this.focusInput} name="phoneNumber" value={this.state.phoneNumber} onChange={this.updateContactKeys} onKeyPress={this.updateUserContactNumber} type="tel"/> : <span onClick={this.showInput} >{c.phoneNumber}</span>}
             </div>
         )
     }

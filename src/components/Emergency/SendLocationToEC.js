@@ -5,6 +5,7 @@ class SendLocationToEC extends Component {
     constructor(){
         super()
         this.state = {
+            contacts: [],
             currentLocation: {
                 latitude: 0,
                 longitude: 0,
@@ -21,17 +22,26 @@ class SendLocationToEC extends Component {
                     longitude: coords.longitude 
                 }
             })
-            this.getAddress()
+            this.updateAddress()
         })
-    }
-    getAddress = async () => {
+        await this.getAllContacts()
+        this.state.contacts.forEach(c => console.log(c.phoneNumber))
+    };
+
+    updateAddress = async () => {
         const state = this.state.currentLocation
         let data =  await apiClient.getDecodedAddress(state.latitude, state.longitude)
         let address = data.data.results[0].formatted_address
         this.setState({ address })
-    }
+    };
 
-    // Sends to server get request to DB for user’s emergency contact numbers.
+    getAllContacts = async() => {
+        const contactsInfo = await apiClient.getAllContacts()
+        const contacts = contactsInfo.data
+        this.setState({ contacts })
+    };
+
+    // Sends Text Message - to user’s emergency contact numbers. 
 
     render() {
         return (

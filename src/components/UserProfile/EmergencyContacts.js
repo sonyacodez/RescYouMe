@@ -34,8 +34,8 @@ class EmergencyContacts extends Component {
         await this.getAllContacts();
     };
 
-    changeUserContactNumber = async(id, phoneNumber) => {
-        await apiClient.changeUserContactNumber(id, phoneNumber)
+    updateUserContactNumber = async(id, phoneNumber) => {
+        await apiClient.updateUserContactNumber(id, phoneNumber)
         await this.getAllContacts()
     };
 

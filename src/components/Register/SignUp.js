@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
+import apiClient from '../../apiClient';
 
 class SignUp extends Component {
     constructor() {
@@ -10,16 +11,9 @@ class SignUp extends Component {
         }
     }
 
-    addUserData = async () => {
-        let result = await axios.post(`http://localhost:5000/user`,this.state)
-        console.log(result)
-    }
+    addUserData = async() => await apiClient.addNewUser(this.state.name, this.state.email);
 
-    saveUserData = (event) => {
-        this.setState({
-            [event.target.name]: event.target.value
-        })
-    }
+    saveUserData = event => this.setState({ [event.target.name]: event.target.value });
 
     render() {
         return (

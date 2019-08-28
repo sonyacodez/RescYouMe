@@ -57,9 +57,9 @@ class SendLocationToEC extends Component {
         const cleanNumbers = contactNumbers.join(",")
         const sms = `sms:+972542833939?body=Your friend, ${userName}, is feeling unsafe. ${userName} is located at ${this.state.address}`
         return (
-            <div style={{marginTop:"-8px", marginLeft:"250px"}}>
+            <div style={{marginTop:"-88px", marginLeft:"250px"}}>
                 {this.state.address ? 
-                <a href={sms} style={{marginRight:"40px", color:"#5BC0BE", textDecorationLine:"none"}}><LocalPostOfficeTwoToneIcon style={{fontSize:"4em"}}/>Location</a> : null}
+                <a href={sms} style={{marginRight:"40px", color:"#5BC0BE", textDecorationLine:"none"}}><LocalPostOfficeTwoToneIcon style={{fontSize:"4em"}}/>Text Your  Location</a> : null}
             </div>
         )
     }

@@ -2,6 +2,7 @@
 import React, {Component} from 'react'
 import apiClient from '../../apiClient'
 import { inject } from 'mobx-react';
+import LocalPostOfficeTwoToneIcon from '@material-ui/icons/LocalPostOfficeTwoTone';
 
 @inject("UserStore")
 class SendLocationToEC extends Component {
@@ -56,8 +57,9 @@ class SendLocationToEC extends Component {
         const cleanNumbers = contactNumbers.join(",")
         const sms = `sms:+972542833939?body=Your friend, ${userName}, is feeling unsafe. ${userName} is located at ${this.state.address}`
         return (
-            <div>
-                {this.state.address ? <button><a href={sms}>Send Location to Emergency Contacts</a></button> : null}
+            <div style={{marginTop:"-8px", marginLeft:"250px"}}>
+                {this.state.address ? 
+                <a href={sms} style={{marginRight:"40px", color:"#5BC0BE", textDecorationLine:"none"}}><LocalPostOfficeTwoToneIcon style={{fontSize:"4em"}}/>Location</a> : null}
             </div>
         )
     }

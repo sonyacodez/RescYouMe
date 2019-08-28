@@ -27,7 +27,7 @@ router.post('/newUserContact/:id', (req,res) => {
     })
 });
 
-router.put("/changeUserContactNumber/:id", (req,res) => {
+router.put("/updateUserContactNumber/:id", (req,res) => {
     Contact.findOneAndUpdate({ _id: req.params.id }, req.body, (err,body) => res.end())
 })
 

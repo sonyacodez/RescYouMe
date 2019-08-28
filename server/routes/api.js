@@ -33,9 +33,9 @@ router.get('/userContacts/:id', function (req, res) {
 //   app.use(require('express-static')('./'));
 
 
-router.put('/newUserContact', function (req, res) {
-    let id = req.body._id
-    let contact = new Contact(req.body.contact)
+router.post('/newUserContact/:id', function (req, res) {
+    let id = req.params.id
+    let contact = new Contact(req.body)
     contact.save()
     User.findOne({_id: id}).exec(function (err, user) {
         user.emergencyContacts.push(contact)
@@ -49,5 +49,7 @@ router.post('/user', function (req, res) {
     client.save()
     res.end()
 })
+
+router.delete('/deleteUserContact/:id', (req,res) => Contact.findOneAndRemove({ _id: req.params.id }, (err,body) => res.end()));
 
 module.exports = router

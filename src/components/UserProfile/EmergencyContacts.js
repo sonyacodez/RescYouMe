@@ -14,22 +14,40 @@ class EmergencyContacts extends Component {
             phoneNumber: 0
         }
     }
-    componentDidMount = async() => {
+
+    getAllContacts = async() => {
         const contacts = await apiClient.getAllContacts()
         this.setState({ contacts })
     };
+
+    componentDidMount = async() => await this.getAllContacts();
 
     updateContactKeys = e => this.setState({ [e.target.name]: e.target.value });
 
     addNewContact = async() => {
         await apiClient.addUserContact(this.state.name, this.state.phoneNumber)
-        await apiClient.getAllContacts()
+        await this.getAllContacts()
+    };
+    
+    deleteUserContact = async(id) => {
+        await apiClient.deleteUserContact(id)
+        await this.getAllContacts();
+    };
+
+    changeUserContactNumber = async(id, phoneNumber) => {
+        await apiClient.changeUserContactNumber(id, phoneNumber)
+        await this.getAllContacts()
     };
     render() {
+        const contact = this.state.contacts.data
         return (
             <div>
                 <div id="userPhoneNumbers">
-                    {this.state.contacts.map(c => <PhoneNumber contact={c}/>)}
+                    {contact ? contact.map(c => <PhoneNumber 
+                                                key={c._id} 
+                                                contact={c} 
+                                                deleteUserContact={this.deleteUserContact} 
+                                                changeUserContactNumber={this.changeUserContactNumber} />) : null}
                 </div>
                 <div id="addForm">
                     <div>Name: 

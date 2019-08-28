@@ -19,7 +19,8 @@ class EmergencyContacts extends Component {
     }
 
     getAllContacts = async() => {
-        const contacts = await apiClient.getAllContacts()
+        const contactsInfo = await apiClient.getAllContacts()
+        const contacts = contactsInfo.data
         this.setState({ contacts })
     };
 
@@ -37,21 +38,20 @@ class EmergencyContacts extends Component {
         await this.getAllContacts();
     };
 
-    changeUserContactNumber = async(id, phoneNumber) => {
-        await apiClient.changeUserContactNumber(id, phoneNumber)
+    updateUserContactNumber = async(id, phoneNumber) => {
+        await apiClient.updateUserContactNumber(id, phoneNumber)
         await this.getAllContacts()
     };
 
     render() {
-        const contact = this.state.contacts.data
+        const contacts = this.state.contacts
         return (
             <div>
                 <div id="userPhoneNumbers" style={{marginTop:"20px"}}>
                     {contact ? contact.map(c => 
-                        <PhoneNumber key={c._id} contact={c} deleteUserContact={this.deleteUserContact} changeUserContactNumber={this.changeUserContactNumber} /> 
+                        <PhoneNumber key={c._id} contact={c} deleteUserContact={this.deleteUserContact} updateUserContactNumber={this.updateUserContactNumber} /> 
                     ) : null}
                 </div>
-
                 <div  id="addForm" style={{marginTop:"50px", borderWidth:"5px", borderStyle:"groove"}}>
                     <h3 style={{marginLeft:"10px"}}>Add Emergency Contact</h3>
                  

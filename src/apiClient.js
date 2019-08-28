@@ -6,8 +6,7 @@ class ApiClient {
         this.key = "AIzaSyATd6WHazWSaDDn4ivv2g9BHvDAeVf4xIw"
     }
     getDecodedAddress = async (lat,lng) => {
-        let data = await axios.get(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=${this.key}`)
-        return  data;
+        return await axios.get(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=${this.key}`)
     };
     getAllContacts = async () => await axios.get(`${this.URLname}/userContacts/5d655effb9671e0a5f87ba68`);
 
@@ -17,8 +16,8 @@ class ApiClient {
     addUserContact = async (name, phoneNumber) => {
         return await axios.post(`${this.URLname}/newUserContact/5d655effb9671e0a5f87ba68`, { name, phoneNumber })
     };
-    changeUserContactNumber = async (contactID, phoneNumber) => {
-        return await axios.put(`${this.URLname}/changeUserContactNumber/${contactID}`, { phoneNumber })
+    updateUserContactNumber = async (contactID, phoneNumber) => {
+        return await axios.put(`${this.URLname}/updateUserContactNumber/${contactID}`, { phoneNumber })
     };
 }
 

@@ -7,7 +7,8 @@ const mapStyles = {
     marginLeft: '8%',
     position: 'absolute',
     width: '80%',
-    height: '80%'
+    height: '70%',
+    borderRadius: "20px"
   }
 };
 export class CurrentLocation extends React.Component {

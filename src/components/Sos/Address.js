@@ -38,8 +38,8 @@ class Address extends Component {
 
     render() {
         return (
-              <div>
-                 <span>distress call at:</span><br></br>
+              <div style={{marginLeft:"20%", marginTop:"5%"}}>
+                 <span style={{marginLeft:"6%"}}>DISTRESS CALL FROM</span><br></br>
                  {this.state.Address}
               </div>
         )

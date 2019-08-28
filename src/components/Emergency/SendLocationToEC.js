@@ -13,7 +13,7 @@ class SendLocationToEC extends Component {
             }
         }
     }
-    findUserLocation = async() => {
+    sendTextToUserContacts = async() => {
         await navigator.geolocation.getCurrentPosition(pos => {
             const coords = pos.coords
             this.setState({ 
@@ -46,7 +46,7 @@ class SendLocationToEC extends Component {
     render() {
         return (
             <div>
-                <button onClick={this.findUserLocation}>Send Location to Emergency Contacts</button>
+                <button onClick={this.sendTextToUserContacts}>Send Location to Emergency Contacts</button>
             </div>
         )
     }

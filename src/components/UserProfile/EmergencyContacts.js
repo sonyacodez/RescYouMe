@@ -48,7 +48,7 @@ class EmergencyContacts extends Component {
         return (
             <div>
                 <div id="userPhoneNumbers" style={{marginTop:"20px"}}>
-                    {contact ? contact.map(c => 
+                    {contacts ? contacts.map(c => 
                         <PhoneNumber key={c._id} contact={c} deleteUserContact={this.deleteUserContact} updateUserContactNumber={this.updateUserContactNumber} /> 
                     ) : null}
                 </div>

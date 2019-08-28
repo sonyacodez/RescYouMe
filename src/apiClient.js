@@ -17,8 +17,8 @@ class ApiClient {
     addUserContact = async (name, phoneNumber) => {
         return await axios.post(`${this.URLname}/newUserContact/5d655effb9671e0a5f87ba68`, { name, phoneNumber })
     };
-    changeUserContactNumber = async (name, phoneNumber) => {
-        return await axios.put(`${this.URLname}/changeUserContactNumber/${name}`, { phoneNumber })
+    changeUserContactNumber = async (contactID, phoneNumber) => {
+        return await axios.put(`${this.URLname}/changeUserContactNumber/${contactID}`, { phoneNumber })
     };
 }
 

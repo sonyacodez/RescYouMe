@@ -12,6 +12,7 @@ import PersonIcon from '@material-ui/icons/Person';
 import AssignmentIndIcon from '@material-ui/icons/AssignmentInd';
 import DirectionsRunIcon from '@material-ui/icons/DirectionsRun';
 import PublicIcon from '@material-ui/icons/Public';
+import Logo from "../materialComps/logo_transparent.png" 
 
 const useStyles = makeStyles({
   list: {
@@ -47,10 +48,8 @@ export default function SwipeableTemporaryDrawer() {
       onKeyDown={toggleDrawer(side, false)}
     >
       <List>
-          <ListItem>
-              <h2>SecureMe</h2>
-          </ListItem>
-          <Divider />
+          <img src={Logo} style={{width: "250px", height: "250px"}} />
+          <Divider style={{marginTop:"-40px"}}/>
           <ListItem style={{marginTop:"20px"}}>
              <ListItemIcon style={{marginRight:"-20px"}}><PersonIcon /></ListItemIcon>
              <Button ><Link className="links" to="/userProfile" style={{color:"black", textDecorationLine:"none"}}>user Profile</Link></Button>

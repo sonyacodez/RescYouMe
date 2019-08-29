@@ -59,7 +59,7 @@ class SendLocationToEC extends Component {
         return (
             <div style={{marginTop:"-88px", marginLeft:"250px"}}>
                 {this.state.address ? 
-                <a href={sms} style={{marginRight:"40px", color:"#5BC0BE", textDecorationLine:"none"}}><LocalPostOfficeTwoToneIcon style={{fontSize:"4em"}}/>Text Your  Location</a> : null}
+                <a href={sms} style={{marginRight:"40px", color:"#5BC0BE", textDecorationLine:"none"}}><LocalPostOfficeTwoToneIcon style={{fontSize:"4em"}}/>Location</a> : null}
             </div>
         )
     }

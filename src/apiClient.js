@@ -10,11 +10,7 @@ class ApiClient {
         return await axios.get(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=${this.key}`)
     };
 
-    addNewUser = async(name, email) => {
-        // let currentUser = 
-        await axios.post(`${this.URLname}/user`, { name, email })
-        // this.currentUserID = currentUser.data._id
-    }
+    addNewUser = async(name, email) => await axios.post(`${this.URLname}/user`, { name, email });
 
     getAllContacts = async () => await axios.get(`${this.URLname}/userContacts/${this.currentUserID}`);
 

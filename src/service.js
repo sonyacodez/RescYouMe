@@ -43,7 +43,7 @@ export const run = async () => {
       console.log('Sending push')
       // (6) send request to server
       await axios.post(
-        'http://localhost:4000/subscribe',
+        'https://rescyoume-app.herokuapp.com/subscribe',
         subscription,
         {
           headers: {
@@ -72,7 +72,7 @@ export const alert = async () => {
     : ''
   // send request to server
   if (currentSub) {
-    await axios.post('http://localhost:4000/alert', currentSub, {
+    await axios.post('https://rescyoume-app.herokuapp.com/alert', currentSub, {
       headers: {
         'content-type': 'application/json'
       }

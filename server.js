@@ -9,8 +9,8 @@ const path = require('path')
 
 dotenv.config()
 
-
-mongoose.connect("mongodb://localhost/secureDB", { useNewUrlParser: true })
+const mongoUrl = process.env.MONGO_URL||"mongodb://localhost/secureDB"
+mongoose.connect(mongoUrl, { useNewUrlParser: true })
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))

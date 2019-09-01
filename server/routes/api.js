@@ -22,19 +22,19 @@ router.post('/user', (req,res) => {
 });
 
 router.get('/userContacts/:id', (req,res) => {
-    User.findOne({ _id: req.params.id })
-        .populate('emergencyContacts')
-        .exec((err,user) => res.send(user.emergencyContacts))
+    // User.findOne({ _id: req.params.id })
+    //     .populate('emergencyContacts')
+    //     .exec((err,user) => res.send(user.emergencyContacts))
 });
 
 router.post('/newUserContact/:id', (req,res) => {
     let contact = new Contact(req.body)
     contact.save()
-    User.findOne({_id: req.params.id}).exec((err,user) => {
-        user.emergencyContacts.push(contact)
-        user.save()
-        res.end()
-    })
+    // User.findOne({_id: req.params.id}).exec((err,user) => {
+    //     user.emergencyContacts.push(contact)
+    //     user.save()
+    //     res.end()
+    // })
 });
 
 router.put("/updateUserContactNumber/:id", (req,res) => {

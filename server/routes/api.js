@@ -10,8 +10,6 @@ dotenv.config()
 // from .env
 const publicKey = process.env.PUBLIC_PUSH_KEY || ''
 const privateKey = process.env.PRIVATE_PUSH_KEY || ''
-console.log(privateKey)
-console.log(publicKey)
 
 router.get('/users', (req,res) => User.find({}).exec((err,data) => res.send(data)));
 

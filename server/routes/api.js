@@ -12,15 +12,9 @@ const publicKey = process.env.PUBLIC_PUSH_KEY || ''
 const privateKey = process.env.PRIVATE_PUSH_KEY || ''
 
 router.post('/existingUser', (req,res) => {
-let email = req.body.email
-let name = req.body.name
-User.findOne({email, name}).exec((err,user) => 
-{
-  if(err){
-    res.send(err)
-  }
-  res.send(user)
-})
+  let email = req.body.email
+  let name = req.body.name
+  User.findOne({ email, name }).exec((err,user) => { err ? res.send(err) : res.send(user) })
 });
 
 router.post('/user', (req,res) => {
@@ -58,9 +52,7 @@ router.delete('/deleteUserContact/:id', (req,res) => {
 
 //this post route saves user's device link
 router.post('/subscribe', async (req, res) => {
-  const newUser = new UserPush({
-    subscriptionObject: req.body
-  })
+  const newUser = new UserPush({ subscriptionObject: req.body })
   try {
     // (8) save new user
     await newUser.save()
@@ -68,7 +60,8 @@ router.post('/subscribe', async (req, res) => {
     if (!newUser) throw new Error('User not saved')
     // otherwise - respond with OK
     res.status(201)
-  } catch (e) {
+  } 
+  catch(e) {
     // if error - console and respond with error
     console.log(e.errmsg)
     res.status(400).send(e.errmsg)

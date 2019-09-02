@@ -19,6 +19,7 @@ class SendLocationToEC extends Component {
             }
         }
     }
+
     componentDidMount = async() => await this.sendTextToUserContacts();
 
     sendTextToUserContacts = async() => {
@@ -48,15 +49,12 @@ class SendLocationToEC extends Component {
         this.setState({ contacts })
     };
 
-    cleanPhoneNumbers = () => {
-        const contacts = this.state.contacts
-        return contacts.map(c => c.phoneNumber).map(c => c.slice(1, c.length)).map(c => `+972${c}`)
-    }
+    cleanPhoneNumbers = () => this.state.contacts.map(c => c.phoneNumber).map(c => c.slice(1, c.length)).map(c => `+972${c}`);
 
     render() {
         const userName = this.props.UserStore.currentUser.name
-        let contactNumbers = this.cleanPhoneNumbers()
-        const cleanNumbers = contactNumbers.join(",")
+        // let contactNumbers = this.cleanPhoneNumbers()
+        // const cleanNumbers = contactNumbers.join(",")
         const sms = `sms:+972542833939?body=Your friend, ${userName}, is feeling unsafe. ${userName} is located at ${this.state.address}`
         return (
             this.state.address ? 

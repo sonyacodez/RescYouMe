@@ -8,14 +8,14 @@ if ("serviceWorker" in navigator) {
 
 // Register SW, Register Push, Send Push
 async function send() {
-  // Register Service Worker
+  // Register Service Worker -- this connects the browser with the APP through worker.js
   console.log("Registering service worker...");
   const register = await navigator.serviceWorker.register("/worker.js", {
     scope: "/"
   });
   console.log("Service Worker Registered...");
 
-  // Register Push
+  // Register Push --- gets unique key identifying which device user is using and notifies the worker.js.
   console.log("Registering Push...");
   const subscription = await register.pushManager.subscribe({
     userVisibleOnly: true,
@@ -23,7 +23,7 @@ async function send() {
   });
   console.log("Push Registered...");
 
-  // Send Push Notification
+  // Send Push Notification -- sends the subscription object above to the apiClient post route /subscribe.
   console.log("Sending Push...");
   await fetch("/subscribe", {
     method: "POST",
@@ -35,6 +35,7 @@ async function send() {
   console.log("Push Sent...");
 }
 
+//this function decrypts public key in service.js then adding to UserPush document in DB.
 function urlBase64ToUint8Array(base64String) {
   const padding = "=".repeat((4 - base64String.length % 4) % 4);
   const base64 = (base64String + padding)

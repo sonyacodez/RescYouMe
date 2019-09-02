@@ -2,6 +2,7 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
 const UserPushSchema = new mongoose.Schema({
+    //takes a user's device unique key and returns a link to eb able to send this user a notification
     subscriptionObject: {
         endpoint: {
             type: String,

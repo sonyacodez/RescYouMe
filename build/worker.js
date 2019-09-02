@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-globals */
 console.log('Loaded service worker!');
 
 self.addEventListener('push', event => {
@@ -9,4 +10,4 @@ self.addEventListener('push', event => {
     event.waitUntil(
       self.registration.showNotification(data.title, options)
     );
-  })
+})

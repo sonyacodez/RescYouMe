@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const User = require('../models/User')
+const User = require('../models/user')
 const UserPush = require('../models/userPush')
 // const Contact = require('../models/Contact')
 const webpush = require('web-push')

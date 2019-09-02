@@ -12,6 +12,7 @@ import AppBar from '@material-ui/core/AppBar';
 import Button from '@material-ui/core/Button';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import ButtonAppBar from './components/materialComps/appBar'
+import { observer, inject } from 'mobx-react';
 
 
 const theme = createMuiTheme(
@@ -23,7 +24,8 @@ const theme = createMuiTheme(
     }
   }
 );
-
+@inject('UserStore')
+@observer
 class App extends Component {
   constructor() {
     super()
@@ -35,11 +37,11 @@ class App extends Component {
   render() {
     return (
       <Router>
-        <ButtonAppBar />
+        {this.props.UserStore.currentUser ?<ButtonAppBar /> : null}
         <MuiThemeProvider theme={theme}>
           <AppBar position="static"></AppBar>
         </MuiThemeProvider>
-          <Route path="/register" exact render={() => <Register />} />
+          <Route path="/" exact render={() => <Register />} />
           <Route path="/sos" exact render={() => <Sos />} />
           <Route path="/userProfile" exact render={() => <UserProfile />} />
           <Route path="/emergency" exact render={() => <Emergency />} />      

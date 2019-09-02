@@ -1,0 +1,72 @@
+#signupContainer{
+    margin-top: 50px;
+    border-width: 5px;
+    display: grid;
+    grid-template-areas: 
+    "L"
+    "H"
+    "N"
+    "E"
+    "B";
+}
+#logo{
+    grid-area: L;
+    justify-self: center;
+    width: 350px;
+    margin-top: -20%
+}
+
+#signUpHeader{
+    grid-area: H;
+    justify-self: center;
+    font-size: 2em;
+    margin-top: -20%
+
+}
+
+#nameContainer{
+    grid-area: N;
+    justify-self: center;
+    /* margin-top: 10%; */
+    display: grid;
+    grid-template-areas: 
+    "nh"
+    "ni"
+
+}
+#nameHeader{
+    grid-area: nh;
+    justify-self: center;
+
+}
+#nameInput{
+    grid-area: ni;
+    justify-self: center;
+}
+
+#emailContainer{
+    grid-area: E;
+    justify-self: center;
+    margin-top: 10%;
+    display: grid;
+    grid-template-areas: 
+    "eh"
+    "ei"
+}
+#emailHeader{
+    grid-area: eh;
+    justify-self: center;
+
+}
+#emailInput{
+    grid-area: ei;
+    justify-self: center;
+
+}
+
+
+#registerButton{
+    grid-area: B;
+    justify-self: center;
+    margin-top: 10%
+}

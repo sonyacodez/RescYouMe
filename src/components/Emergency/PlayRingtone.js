@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import VolumeDownTwoToneIcon from '@material-ui/icons/VolumeDownTwoTone';
 import Button from '@material-ui/core/Button';
-
+import '../../styles/PlayRingtone.css'
 
 class PlayRingtone extends Component {
   playAudio(){
@@ -10,12 +10,12 @@ class PlayRingtone extends Component {
 
   render(){
     return(
-      <div style={{marginTop:"-94px", marginLeft:"40%"}}>
-        <VolumeDownTwoToneIcon style={{color:"#5BC0BE", fontSize:"5em", marginBottom:"10px"}}/>
-        <Button style={{ color:"#5BC0BE", marginLeft:"-85px", fontSize:"1em"}} onClick={this.playAudio}>Ringtone</Button>
-      </div>
-    )
-  };
+        <div id="playRingtoneContainer">
+        <VolumeDownTwoToneIcon id="playRingtoneIcon"/>
+         <Button id="playRingtoneHeader" onClick={this.playAudio}>Ringtone</Button>
+        </div>
+    );
+ }
 }
 
 export default PlayRingtone;

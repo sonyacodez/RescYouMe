@@ -1,5 +1,8 @@
 import axios from 'axios'
+import { observer, inject } from 'mobx-react';
 
+// @inject('UserStore')
+// @observer
 class ApiClient {
     constructor() {
         this.URLname = "http://localhost:4000"

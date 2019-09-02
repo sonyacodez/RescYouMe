@@ -56,10 +56,6 @@ export default function SwipeableTemporaryDrawer() {
              <Button ><Link className="links" to="/userProfile" style={{color:"black", textDecorationLine:"none"}}>user Profile</Link></Button>
           </ListItem>
           <ListItem>
-             <ListItemIcon style={{marginRight:"-22px"}}><AssignmentIndIcon /></ListItemIcon>
-             <Button ><Link className="links" to="/register" style={{color:"black", textDecorationLine:"none"}}>register</Link></Button>
-          </ListItem>
-          <ListItem>
              <ListItemIcon style={{marginRight:"-20px"}}><DirectionsRunIcon /></ListItemIcon>
              <Button ><Link className="links" to="/emergency" style={{color:"black", textDecorationLine:"none"}}>emergency</Link></Button>
           </ListItem>

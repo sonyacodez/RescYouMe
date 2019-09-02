@@ -20,6 +20,7 @@
     "body-parser": "^1.18.2",
     "camelcase": "^5.2.0",
     "case-sensitive-paths-webpack-plugin": "2.2.0",
+    "cors": "^2.8.5",
     "css-loader": "2.1.1",
     "dotenv": "^6.2.0",
     "dotenv-expand": "4.2.0",
@@ -77,8 +78,9 @@
     "workbox-webpack-plugin": "4.3.1"
   },
   "scripts": {
-    "start": "node scripts/start.js",
-    "build": "node scripts/build.js",
+    "react": "node scripts/start.js",
+    "start": "node server.js",
+    "build-react": "node scripts/build.js",
     "test": "node scripts/test.js"
   },
   "eslintConfig": {

@@ -1,66 +1,52 @@
 const express = require('express') 
 const app = express()
 const api = require( './server/routes/api' )
-const bodyParser = require('body-parser')
+// const bodyParser = require('body-parser')
+const cors = require('cors')
 const mongoose = require ('mongoose')
 const dotenv = require('dotenv')
-const webpush = require('web-push');
 const path = require('path')
 
 
 dotenv.config()
+const dbUrl =
+  process.env.MONGO_URL || 'mongodb://localhost:27017/secureDB'
+const port = process.env.PORT || 4000
 
-webpush.setVapidDetails(process.env.WEB_PUSH_CONTACT, process.env.PUBLIC_VAPID_KEY, process.env.PRIVATE_VAPID_KEY)
 
-// const publicVapidKey = process.env.PUBLIC_VAPID_KEY;
-// const privateVapidKey = process.env.PRIVATE_VAPID_KEY;
+app.use(cors())
+app.use(express.json())
 
-// // Replace with your email
-// webpush.setVapidDetails('hadanyg@gmail.com', publicVapidKey, privateVapidKey);
+mongoose
+  .connect(dbUrl, {
+    useNewUrlParser: true,
+    useCreateIndex: true
+  })
+  .then(() => {
+    console.log('connected to database')
+  })
+  .catch(() => {
+    console.log('failed to connect to database')
+  })
 
-mongoose.connect("mongodb://localhost/secureDB", { useNewUrlParser: true })
+// app.use(bodyParser.json())
+// app.use(bodyParser.urlencoded({ extended: false }))
+// app.use(function (req, res, next) {
+//     res.header('Access-Control-Allow-Origin', '*')
+//     res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS')
+//     res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With')
 
-app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({ extended: false }))
-app.use(function (req, res, next) {
-    res.header('Access-Control-Allow-Origin', '*')
-    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS')
-    res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With')
-
-    next()
-})
+//     next()
+// })
 app.use('/', api)
 
-
-
-
-
-let port = process.env.PORT || 4000
+// serve React app from client/build
+app.use(express.static(path.join(__dirname, './build')))
+app.get('/index.html', (req, res) => {
+  res.sendFile(path.join(__dirname + './build/index.html'))
+})
 
 app.listen(port, function(){
     console.log(`Running on port ${port}`)
 })
 
-
-//notifications subscribe route
-
-app.get('/', (req, res) => {
-    res.send('Hello world!')
-  })
-  
-  app.post('/notifications/subscribe', (req, res) => {
-    const subscription = req.body
-  
-    console.log(subscription)
-  
-    const payload = JSON.stringify({
-      title: 'Hello!',
-      body: 'It works.',
-    })
-  
-    webpush.sendNotification(subscription, payload)
-      .then(result => console.log(result))
-      .catch(e => console.log(e.stack))
-  
-    res.status(200).json({'success': true})
-  });

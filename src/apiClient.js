@@ -1,5 +1,8 @@
 import axios from 'axios'
+import { observer, inject } from 'mobx-react';
 
+// @inject('UserStore')
+// @observer
 class ApiClient {
     constructor() {
         this.URLname = "http://localhost:4000"
@@ -10,6 +13,8 @@ class ApiClient {
     getDecodedAddress = async(lat,lng) => {
         return await axios.get(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=${this.key}`)
     };
+
+    findUser = async(name, email) => await axios.post(`${this.URLname}/existingUser`, { name, email });
 
     addNewUser = async(name, email) => await axios.post(`${this.URLname}/user`, { name, email });
 

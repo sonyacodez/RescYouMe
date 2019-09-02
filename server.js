@@ -10,7 +10,8 @@ const path = require('path')
 
 dotenv.config()
 const dbUrl =
-  process.env.MONGO_URL || 'mongodb://localhost:27017/secureDB'
+  // process.env.MONGO_URL || 
+  'mongodb://localhost:27017/secureDB'
 const port = process.env.PORT || 4000
 
 

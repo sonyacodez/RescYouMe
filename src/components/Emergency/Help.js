@@ -8,7 +8,7 @@ class Help extends Component {
   render(){
     return(
       <div id="helpContainer">
-        <ErrorTwoToneIcon id="helpIcon" style={{fontSize:"15em", color:"#ff3838"}} onClick = {alert}/>
+        <ErrorTwoToneIcon id="helpIcon" onClick = {alert}/>
         <h2 id="helpHeader">HELP</h2>
       </div>
     );

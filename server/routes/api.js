@@ -1,8 +1,8 @@
 const express = require('express')
 const router = express.Router()
-const User = require('../models/user')
+const User = require('../models/User')
 const UserPush = require('../models/userPush')
-const Contact = require('../models/contact')
+const Contact = require('../models/Contact')
 const webpush = require('web-push')
 const dotenv = require('dotenv')
 dotenv.config()
@@ -31,19 +31,19 @@ router.post('/user', (req,res) => {
 });
 
 router.get('/userContacts/:id', (req,res) => {
-    // User.findOne({ _id: req.params.id })
-    //     .populate('emergencyContacts')
-    //     .exec((err,user) => res.send(user.emergencyContacts))
+  User.findOne({ _id: req.params.id })
+      .populate('emergencyContacts')
+      .exec((err,user) => res.send(user.emergencyContacts))
 });
 
 router.post('/newUserContact/:id', (req,res) => {
     let contact = new Contact(req.body)
     contact.save()
-    // User.findOne({_id: req.params.id}).exec((err,user) => {
-    //     user.emergencyContacts.push(contact)
-    //     user.save()
-    //     res.end()
-    // })
+    User.findOne({_id: req.params.id}).exec((err,user) => {
+        user.emergencyContacts.push(contact)
+        user.save()
+        res.end()
+    })
 });
 
 router.put("/updateUserContactNumber/:id", (req,res) => {
@@ -56,6 +56,7 @@ router.delete('/deleteUserContact/:id', (req,res) => {
 
 //FOR PUSH NOTIFICATIONS
 
+//this post route saves user's device link
 router.post('/subscribe', async (req, res) => {
     const newUser = new UserPush({
       subscriptionObject: req.body
@@ -73,10 +74,12 @@ router.post('/subscribe', async (req, res) => {
       res.status(400).send(e.errmsg)
     }
   })
+
+  //the actual push notification route
   router.post('/alert', async (req, res) => {
     // endPoint of current user
     const { endpoint } = req.body
-    // get users, except for current
+    // get userpush documents in array, except for user who pushed HELP button
     const users = await UserPush.find({
       'subscriptionObject.endpoint': {
         $ne: endpoint

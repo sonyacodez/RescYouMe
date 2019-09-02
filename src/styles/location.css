@@ -1,0 +1,22 @@
+#locationContainer{
+    justify-items: center;
+    display: grid;
+    grid-template-areas: 
+    "I"
+    "H";
+}
+
+#locationHeader{
+    grid-area: H;
+    color:#5BC0BE;
+    text-decoration-line:none;
+    font-size:1em;
+
+}
+
+#locationIcon{
+    grid-area: I;
+    font-size:5em;
+    color:#5BC0BE;
+
+}

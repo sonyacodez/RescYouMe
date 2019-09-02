@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-globals */
 console.log('Loaded service worker!');
 
 self.addEventListener('push', event => {

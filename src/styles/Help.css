@@ -1,0 +1,20 @@
+#helpContainer {
+    display: grid;
+    grid-template-areas: 
+    "I"
+    "H";
+    margin-top: 80px
+}
+
+#helpIcon {
+    grid-area: I;
+    font-size: 15em;
+    color: #ff3838;
+    justify-self: center;
+    margin-bottom: -30px;
+}
+
+#helpHeader {
+    grid-area: H;
+    justify-self: center;
+}

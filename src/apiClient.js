@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { observer, inject } from 'mobx-react';
+import UserStore from './stores/UserStore';
 
 // @inject('UserStore')
 // @observer
@@ -18,11 +18,11 @@ class ApiClient {
 
     addNewUser = async(name, email) => await axios.post(`${this.URLname}/user`, { name, email });
 
-    getAllContacts = async() => await axios.get(`${this.URLname}/userContacts/${this.currentUserID}`);
+    getAllContacts = async() => await axios.get(`${this.URLname}/userContacts/${UserStore.currentUserID}`);
 
-    deleteUserContact = async(contactID) => await axios.delete(`${this.URLname}/deleteUserContact/${contactID}`);
+    deleteUserContact = async(userID, contactID) => await axios.delete(`${this.URLname}/deleteUserContact`, { data: { contactId: contactID, userId: userID } });
 
-    addUserContact = async(name, phoneNumber) => await axios.post(`${this.URLname}/newUserContact/${this.currentUserID}`, { name, phoneNumber });
+    addUserContact = async(name, phoneNumber) => await axios.post(`${this.URLname}/newUserContact/${UserStore.currentUserID}`, { name, phoneNumber });
 
     updateUserContactNumber = async(contactID, phoneNumber) => await axios.put(`${this.URLname}/updateUserContactNumber/${contactID}`, { phoneNumber });
 }

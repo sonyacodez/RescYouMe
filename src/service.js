@@ -63,7 +63,6 @@ export const run = async () => {
 }
 
 export const alert = async () => {
-  console.log("i'm in alert function")
   // get current service worker registration data
   const currentReg = await navigator.serviceWorker.getRegistration()
   // get subscription details

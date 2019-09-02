@@ -76,8 +76,8 @@ router.post('/subscribe', async (req, res) => {
   
     // prepare message
     const message = JSON.stringify({
-      title: 'ALERT',
-      body: 'Someone needs your help now!!!!',
+      title: 'Someone needs your help now!!!',
+      body: '',
       icon: 'https://tpmbc.com/wp-content/uploads/2018/02/TrailCondition.png'
     })
 

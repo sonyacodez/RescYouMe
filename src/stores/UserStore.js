@@ -14,7 +14,7 @@ class UserStore {
 
     @action updateUserKeys = e => this.setState({ [e.target.name]: e.target.value });
     
-    @action updateCurrentUserID = (_userID) => this.setState({ currentUserID: _userID })
+    @action updateCurrentUserID = (_userID) => this.currentUserID = _userID 
 
 
 }

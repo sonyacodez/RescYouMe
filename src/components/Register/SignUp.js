@@ -7,6 +7,7 @@ import { observer, inject } from 'mobx-react';
 import '../../styles/signUp.css'
 import Logo from "../materialComps/logo_transparent.png" 
 import { Redirect } from 'react-router-dom'
+import { urlBase64ToUint8Array } from '../../../public/client.js'
 
 @inject('UserStore')
 @observer
@@ -20,30 +21,34 @@ class SignUp extends Component {
     }
 
     addUserData = async() => {
-        let isExist = await apiClient.findUser(this.state.name, this.state.email);
-        if(isExist.data){
-            this.props.UserStore.updateCurrentUserID(isExist.data._id)
+        const publicVapidKey = "BJ0EZi8Bbg3qs7GFg1t9ItYQTu9XyRC2e1Goph9BabRVq6M9nFdmz--aAokvfbq9T9lkerpvTOf0Npv9hvJ4N2k";
+        const register = await navigator.serviceWorker.register("/worker.js", { scope: "/" });
+        const endpoint = await register.pushManager.subscribe({
+            userVisibleOnly: true,
+            applicationServerKey: urlBase64ToUint8Array(publicVapidKey)
+        })
+        const subscription = JSON.stringify(endpoint)
+        let existingUser = await apiClient.findUser(this.state.name, this.state.email);
+
+        if(existingUser.data){
+            this.props.UserStore.updateCurrentUserID(existingUser.data._id)
+            await apiClient.updateUser(subscription)
         }
+
         else {
-            let user = await apiClient.addNewUser(this.state.name, this.state.email)
+            let user = await apiClient.addNewUser(this.state.name, this.state.email, subscription)
             this.props.UserStore.updateCurrentUserID(user.data._id)
         };
         this.setRedirect()
     }
 
-
-    setRedirect = () => {
-        this.setState({
-          redirect: true
-        })
-      }
-      renderRedirect = () => {
+    setRedirect = () => this.setState({ redirect: true });
+    
+    renderRedirect = () => {
         if (this.state.redirect) {
-          return <Redirect to='/emergency' />
+            return <Redirect to='/emergency' />
         }
-      }
-
-
+    }
 
     saveUserData = event => this.setState({ [event.target.name]: event.target.value });
 

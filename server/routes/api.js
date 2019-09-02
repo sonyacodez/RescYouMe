@@ -1,7 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const User = require('../models/user')
-const UserPush = require('../models/userPush')
+const User = require('../models/User')
 // const Contact = require('../models/Contact')
 const webpush = require('web-push')
 const dotenv = require('dotenv')
@@ -11,16 +10,10 @@ dotenv.config()
 const publicKey = process.env.PUBLIC_PUSH_KEY || ''
 const privateKey = process.env.PRIVATE_PUSH_KEY || ''
 
-router.post('/existingUser', (req,res) => {
+router.get('/existingUser', (req,res) => {
   let email = req.body.email
   let name = req.body.name
   User.findOne({ email, name }).exec((err,user) => { err ? res.send(err) : res.send(user) })
-});
-
-router.post('/user', (req,res) => {
-    let newUser = new User(req.body)
-    newUser.save()
-    res.send(newUser)
 });
 
 router.get('/userContacts/:id', (req,res) => {
@@ -44,8 +37,6 @@ router.put("/updateUserContactNumber/:id", (req,res) => {
 })
 
 router.delete('/deleteUserContact/:id', (req,res) => {
-    Contact.findOneAndRemove({ _id: req.params.id }, (err,body) => res.end())
-    User
     // Contact.findOneAndRemove({ _id: req.params.id }, (err,body) => res.end())
 });
 
@@ -53,9 +44,8 @@ router.delete('/deleteUserContact/:id', (req,res) => {
 
 //this post route saves user's device link
 router.post('/subscribe', async (req, res) => {
-  const newUser = new UserPush({ subscriptionObject: req.body })
+  const newUser = new User( req.body )
   try {
-    // (8) save new user
     await newUser.save()
     // if not saved - throw error
     if (!newUser) throw new Error('User not saved')
@@ -67,6 +57,10 @@ router.post('/subscribe', async (req, res) => {
     console.log(e.errmsg)
     res.status(400).send(e.errmsg)
   }
+})
+
+router.put("/updateUser/:id", (req,res) => {
+  User.findOneAndUpdate({ _id: req.params.id }, req.body, (err,body) => res.end())
 })
 
 //the actual push notification route

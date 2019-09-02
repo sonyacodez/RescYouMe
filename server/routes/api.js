@@ -11,12 +11,23 @@ dotenv.config()
 const publicKey = process.env.PUBLIC_PUSH_KEY || ''
 const privateKey = process.env.PRIVATE_PUSH_KEY || ''
 
-router.get('/users', (req,res) => User.find({}).exec((err,data) => res.send(data)));
+router.post('/existingUser', (req,res) => {
+let email = req.body.email
+let name = req.body.name
+User.findOne({email, name}).exec((err,user) => 
+{
+  if(err){
+    res.send(err)
+  }
+  res.send(user)
+})
+});
 
 router.post('/user', (req,res) => {
     let newUser = new User(req.body)
     newUser.save()
-    User.findOne({ name: "Keren" }, (err,user) => res.send(user));
+    res.send(newUser)
+    // User.findOne({ name: "Keren" }, (err,user) => res.send(user));
 });
 
 router.get('/userContacts/:id', (req,res) => {

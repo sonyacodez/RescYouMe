@@ -3,6 +3,10 @@ import axios from 'axios';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import apiClient from '../../apiClient';
+import { observer, inject } from 'mobx-react';
+
+@inject('UserStore')
+@observer
 
 class SignUp extends Component {
     constructor() {
@@ -11,7 +15,13 @@ class SignUp extends Component {
         }
     }
 
-    addUserData = async() => await apiClient.addNewUser(this.state.name, this.state.email);
+    addUserData = async() => {
+        // let user = await apiClient.addNewUser(this.state.name, this.state.email);
+        let isExist = await apiClient.findUser(this.state.name, this.state.email);
+        isExist.data ? 
+        console.log(isExist)
+
+    }
 
     saveUserData = event => this.setState({ [event.target.name]: event.target.value });
 

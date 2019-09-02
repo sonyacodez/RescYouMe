@@ -39,10 +39,12 @@ class App extends Component {
         <MuiThemeProvider theme={theme}>
           <AppBar position="static"></AppBar>
         </MuiThemeProvider>
-          <Route path="/register" exact render={() => <Register />} />
+        <Route path="/" exact component={Register} />
+
+          {/* <Route path="/register" exact render={() => <Register />} />
           <Route path="/sos" exact render={() => <Sos />} />
           <Route path="/userProfile" exact render={() => <UserProfile />} />
-          <Route path="/emergency" exact render={() => <Emergency />} />      
+          <Route path="/emergency" exact render={() => <Emergency />} />       */}
       </Router>
     )
   }

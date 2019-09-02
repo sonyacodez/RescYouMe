@@ -1,0 +1,40 @@
+#emergencyContainer {
+    display: grid;
+    grid-template-areas: 
+    "h"
+    "o"
+}
+
+#helpComp{
+    grid-area: h;
+}
+
+#otherHelpButtons{
+    grid-area: o;
+    display: grid;
+    grid-template-areas: 
+    "p r l";
+    justify-self: center;
+    grid-column-gap: 10px;
+    margin-top: 15%
+}
+
+#policeComp{
+    grid-area: p;
+    justify-self: center
+
+}
+
+#ringtoneComp{
+    grid-area: r;
+    justify-self: center
+
+}
+
+#locationComp{
+    grid-area: l;
+    justify-self: center;
+    align-self: center
+}
+
+

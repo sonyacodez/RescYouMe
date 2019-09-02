@@ -1,0 +1,25 @@
+#policeContainer {
+    display: grid;
+    grid-template-areas: 
+    "I"
+    "H";
+    /* margin-left: 33%; */
+}
+
+#policeIcon {
+    color:#5BC0BE;
+    font-size:5em;
+    grid-area: I;
+    justify-self: start;
+
+}
+
+#policeHeader {
+    color:#5BC0BE;
+    text-decoration-line:none;
+    grid-area: H;
+    justify-self: start;
+    font-size:1em;
+
+
+}

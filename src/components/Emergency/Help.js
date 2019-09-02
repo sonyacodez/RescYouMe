@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import ErrorTwoToneIcon from '@material-ui/icons/ErrorTwoTone';
+import '../../styles/Help.css'
+
 
 class Help extends Component {
   displayNotification() {
@@ -20,9 +22,9 @@ class Help extends Component {
   }
   render(){
     return(
-      <div style={{marginTop:"60px", marginLeft:"15%"}}>
-        <ErrorTwoToneIcon style={{fontSize:"15em", color:"#ff3838"}} onClick = {this.displayNotification}/>
-        <h2 style={{marginLeft:"90px", marginTop:"-15px"}}>HELP</h2>
+      <div id="helpContainer">
+        <ErrorTwoToneIcon id="helpIcon" style={{fontSize:"15em", color:"#ff3838"}} onClick = {this.displayNotification}/>
+        <h2 id="helpHeader">HELP</h2>
       </div>
     );
  }

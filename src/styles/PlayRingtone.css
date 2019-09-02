@@ -1,0 +1,22 @@
+#playRingtoneContainer{
+    display: grid;
+    grid-template-areas: 
+    "I"
+    "H";
+    /* margin-left: 66%; */
+}
+
+#playRingtoneIcon{
+    grid-area: I;
+    color:#5BC0BE;
+    font-size:5em;
+    /* margin-left:25%; */
+    justify-self: center;
+}
+
+#playRingtoneHeader{
+    grid-area: H;
+    /* margin-left:25%; */
+    color:#5BC0BE;
+    font-size:1em;
+}

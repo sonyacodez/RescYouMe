@@ -37,7 +37,7 @@ class App extends Component {
   render() {
     return (
       <Router>
-        {this.props.UserStore.currentUser ?<ButtonAppBar /> : null}
+        {this.props.UserStore.currentUserID ?<ButtonAppBar /> : null}
         <MuiThemeProvider theme={theme}>
           <AppBar position="static"></AppBar>
         </MuiThemeProvider>

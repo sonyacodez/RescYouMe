@@ -21,7 +21,6 @@ router.post('/user', (req,res) => {
     let newUser = new User(req.body)
     newUser.save()
     res.send(newUser)
-    // User.findOne({ name: "Keren" }, (err,user) => res.send(user));
 });
 
 router.get('/userContacts/:id', (req,res) => {
@@ -45,6 +44,8 @@ router.put("/updateUserContactNumber/:id", (req,res) => {
 })
 
 router.delete('/deleteUserContact/:id', (req,res) => {
+    Contact.findOneAndRemove({ _id: req.params.id }, (err,body) => res.end())
+    User
     // Contact.findOneAndRemove({ _id: req.params.id }, (err,body) => res.end())
 });
 

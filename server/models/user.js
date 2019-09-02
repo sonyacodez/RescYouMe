@@ -18,7 +18,7 @@ const userSchema = new Schema({
         endpoint: {
             type: String,
             trim: true,
-            required: true,
+            required: false,
             unique: true
         },
         expirationTime: { type: String, trim: true },

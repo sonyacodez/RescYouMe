@@ -3,10 +3,13 @@ import axios from 'axios';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import apiClient from '../../apiClient';
+import { observer, inject } from 'mobx-react';
 import '../../styles/signUp.css'
 import Logo from "../materialComps/logo_transparent.png" 
 import { Redirect } from 'react-router-dom'
 
+@inject('UserStore')
+@observer
 
 class SignUp extends Component {
     constructor() {
@@ -15,6 +18,18 @@ class SignUp extends Component {
             redirect: false
         }
     }
+
+    addUserData = async() => {
+        // let user = await apiClient.addNewUser(this.state.name, this.state.email);
+        let isExist = await apiClient.findUser(this.state.name, this.state.email);
+        if(isExist.data){this.props.UserStore.updateCurrentUserID(isExist.data.id)}
+        else {
+            let user = await apiClient.addNewUser(this.state.name, this.state.email)
+            this.props.UserStore.updateCurrentUserID(user.data.id)
+        };
+        this.setRedirect()
+    }
+
 
     setRedirect = () => {
         this.setState({
@@ -27,10 +42,7 @@ class SignUp extends Component {
         }
       }
 
-    addUserData = async() => {
-        await apiClient.addNewUser(this.state.name, this.state.email)
-        this.setRedirect()
-    }
+
 
     saveUserData = event => this.setState({ [event.target.name]: event.target.value });
 

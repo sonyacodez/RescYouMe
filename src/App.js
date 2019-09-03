@@ -13,6 +13,7 @@ import Button from '@material-ui/core/Button';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import ButtonAppBar from './components/materialComps/appBar'
 import { observer, inject } from 'mobx-react';
+import { Redirect } from 'react-router-dom'
 
 
 const theme = createMuiTheme(
@@ -41,10 +42,10 @@ class App extends Component {
         <MuiThemeProvider theme={theme}>
           <AppBar position="static"></AppBar>
         </MuiThemeProvider>
-          <Route path="/" exact render={() => <Register />} />
-          <Route path="/sos" exact render={() => <Sos />} />
-          <Route path="/userProfile" exact render={() => <UserProfile />} />
-          <Route path="/emergency" exact render={() => <Emergency />} />      
+        <Route path="/" exact render={() => <Register />} />
+        {this.props.UserStore.currentUserID ? <Route path="/sos" exact render={() => <Sos />} />: <Redirect to='/' />}
+        {this.props.UserStore.currentUserID ?  <Route path="/userProfile" exact render={() => <UserProfile />} />: <Redirect to='/' />}
+        {this.props.UserStore.currentUserID ?  <Route path="/emergency" exact render={() => <Emergency />} /> : <Redirect to='/' />}
       </Router>
     )
   }

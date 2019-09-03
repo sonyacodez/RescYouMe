@@ -55,13 +55,10 @@ router.post('/subscribe', async (req, res) => {
   const newUser = new User( req.body )
   try {
     await newUser.save()
-    // if not saved - throw error
     if (!newUser) throw new Error('User not saved')
-    // otherwise - respond with OK
     res.status(201)
   } 
   catch(e) {
-    // if error - console and respond with error
     console.log(e.errmsg)
     res.status(400).send(e.errmsg)
   }
@@ -79,7 +76,8 @@ router.post('/alert', async (req, res) => {
   const otherUsers = await User.find({ 'subscriptionObject.endpoint': { $ne: endpoint } })
   const currentUser = await User.find({ endpoint })
   const message = JSON.stringify({
-      title: `Your fellow human, ${currentUser.name}, needs your help ASAP! ${currentUser.name} is located at ${currentUser.location.address}.`,
+      title: `Your fellow human, ${currentUser.name}, needs your help ASAP! 
+      ${currentUser.name} is located at ${currentUser.location.address}.`,
       body: '',
       icon: 'https://tpmbc.com/wp-content/uploads/2018/02/TrailCondition.png'
   })
@@ -88,9 +86,8 @@ router.post('/alert', async (req, res) => {
       try {
           const notify = await webpush.sendNotification( el.subscriptionObject, message )
           console.log(notify)
-      } catch (e) {
-          console.error(e)
-      }
+      } 
+      catch (e) { console.error(e) }
   })
 })
 

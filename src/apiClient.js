@@ -1,8 +1,6 @@
 import axios from 'axios'
 import UserStore from './stores/UserStore';
 
-// @inject('UserStore')
-// @observer
 class ApiClient {
     constructor() {
         this.URLname = "http://localhost:4000"

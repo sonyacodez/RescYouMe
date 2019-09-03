@@ -21,6 +21,7 @@ class SignUp extends Component {
     }
 
     addUserData = async() => {
+
         const publicVapidKey = "BJ0EZi8Bbg3qs7GFg1t9ItYQTu9XyRC2e1Goph9BabRVq6M9nFdmz--aAokvfbq9T9lkerpvTOf0Npv9hvJ4N2k";
         const register = await navigator.serviceWorker.register("/worker.js", { scope: "/" });
         const endpoint = await register.pushManager.subscribe({

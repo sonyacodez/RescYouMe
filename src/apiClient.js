@@ -33,9 +33,11 @@ class ApiClient {
         await axios.put(`${this.URLname}/updateUser/${UserStore.currentUserID}`, { latitude, longitude, address, subscriptionObject })
     }
 
+    updateUserLocation = async(latitude, longitude, address) => await axios.put(`${this.URLname}/updateUserLocation/${UserStore.currentUserID}`, { location: {latitude, longitude, address}});
+
     getAllContacts = async() => await axios.get(`${this.URLname}/userContacts/${UserStore.currentUserID}`);
 
-    deleteUserContact = async(userID, contactID) => await axios.delete(`${this.URLname}/deleteUserContact`, { data: { contactId: contactID, userId: userID } });
+    deleteUserContact = async(userID, contactID) => await axios.delete(`${this.URLname}/deleteUserContact/${contactID}`);
 
     addUserContact = async(name, phoneNumber) => await axios.post(`${this.URLname}/newUserContact/${UserStore.currentUserID}`, { name, phoneNumber });
 

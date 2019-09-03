@@ -20,16 +20,23 @@ class SignUp extends Component {
     }
 
     addUserData = async () => {
+        if (!this.state.name || !this.state.email) { return alert('please fill empty fields') }
+
+        await navigator.geolocation.getCurrentPosition(pos => {
+            const coords = pos.coords
+            this.props.UserStore.updateVictimLocation(coords.latitude.toFixed(6), coords.longitude.toFixed(6))
+        })
+
         const publicVapidKey = "BJ0EZi8Bbg3qs7GFg1t9ItYQTu9XyRC2e1Goph9BabRVq6M9nFdmz--aAokvfbq9T9lkerpvTOf0Npv9hvJ4N2k";
-        const register = await navigator.serviceWorker.register("/worker.js", { scope: "/" })
+        const register = await navigator.serviceWorker.register("/worker.js", { scope: "/" });
         const endpoint = await register.pushManager.subscribe({
             userVisibleOnly: true,
             applicationServerKey: urlBase64ToUint8Array(publicVapidKey)
         })
+
         const subscription = JSON.stringify(endpoint)
-        let existingUser = await apiClient.findUser(this.state.name, this.state.email)
-        console.log(existingUser)
-        
+        let existingUser = await apiClient.findUser(this.state.name, this.state.email);
+
         if (existingUser.data) {
             this.props.UserStore.updateCurrentUserID(existingUser.data._id)
             await navigator.geolocation.getCurrentPosition(async (pos) => {

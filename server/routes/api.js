@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const User = require('../models/User')
-// const Contact = require('../models/Contact')
+const Contact = require('../models/Contact')
 const webpush = require('web-push')
 const dotenv = require('dotenv')
 dotenv.config()
@@ -17,7 +17,6 @@ router.get('/existingUser', (req,res) => {
 });
 
 router.get('/userContacts/:id', (req,res) => {
-  console.log(req.params.id)
   User.findOne({ _id: req.params.id }).exec((err,user) => console.log(user.emergencyContacts))
   // User.findOne({ _id: req.params.id })
   //     .populate('emergencyContacts')
@@ -41,7 +40,6 @@ router.put("/updateUserContactNumber/:id", (req,res) => {
 })
 
 router.delete('/deleteUserContact', (req,res) => {
-console.log(req.body)
     // Contact.findOneAndRemove({ _id: req.params.id }, (err,body) => res.end())
     // User.findOne({ _id: req.params.id }, (err,body) => res.end())
 // router.delete('/deleteUserContact/:id', (req,res) => {

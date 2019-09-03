@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import axios from 'axios';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import apiClient from '../../apiClient';
@@ -7,7 +6,7 @@ import { observer, inject } from 'mobx-react';
 import '../../styles/signUp.css'
 import Logo from "../materialComps/logo_transparent.png" 
 import { Redirect } from 'react-router-dom'
-import { urlBase64ToUint8Array } from '../../../public/client.js'
+import { urlBase64ToUint8Array } from '../../client'
 
 @inject('UserStore')
 @observer

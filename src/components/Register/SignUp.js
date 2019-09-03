@@ -21,11 +21,13 @@ class SignUp extends Component {
 
     addUserData = async() => {
         let isExist = await apiClient.findUser(this.state.name, this.state.email);
+        console.log(isExist)
         if(isExist.data){
             this.props.UserStore.updateCurrentUserID(isExist.data._id)
         }
         else {
             let user = await apiClient.addNewUser(this.state.name, this.state.email)
+            console.log(user)
             this.props.UserStore.updateCurrentUserID(user.data._id)
         };
         this.setRedirect()

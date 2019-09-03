@@ -30,28 +30,33 @@ router.post('/user', (req,res) => {
 });
 
 router.get('/userContacts/:id', (req,res) => {
+  console.log(req.params.id)
+  User.findOne({ _id: req.params.id }).exec((err,user) => console.log(user.emergencyContacts))
   // User.findOne({ _id: req.params.id })
   //     .populate('emergencyContacts')
-  //     .exec((err,user) => res.send(user.emergencyContacts))
+  //     .exec((err,user) => {
+  //       console.log(user)
+  //       res.send(user.emergencyContacts)})
 });
 
 router.post('/newUserContact/:id', (req,res) => {
-    // let contact = new Contact(req.body)
-    // contact.save()
-    // User.findOne({_id: req.params.id}).exec((err,user) => {
-    //     user.emergencyContacts.push(contact)
-    //     user.save()
-    //     res.end()
-    // })
+    let contact = new Contact(req.body)
+    contact.save()
+    User.findOne({_id: req.params.id}).exec((err,user) => {
+        user.emergencyContacts.push(contact)
+        user.save()
+        res.end()
+    })
 });
 
 router.put("/updateUserContactNumber/:id", (req,res) => {
-    // Contact.findOneAndUpdate({ _id: req.params.id }, req.body, (err,body) => res.end())
+    Contact.findOneAndUpdate({ _id: req.params.id }, req.body, (err,body) => res.end())
 })
 
-router.delete('/deleteUserContact/:id', (req,res) => {
-    Contact.findOneAndRemove({ _id: req.params.id }, (err,body) => res.end())
-    User
+router.delete('/deleteUserContact', (req,res) => {
+console.log(req.body)
+    // Contact.findOneAndRemove({ _id: req.params.id }, (err,body) => res.end())
+    // User.findOne({ _id: req.params.id }, (err,body) => res.end())
     // Contact.findOneAndRemove({ _id: req.params.id }, (err,body) => res.end())
 });
 

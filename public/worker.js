@@ -7,14 +7,14 @@ self.addEventListener('push', event => {
     body: data.body,
     actions: [
       {
-        action: 'show',
+        action: 'Accept',
         title: 'Show it',
-        icon: '/check.png'
+        icon: '../src/images/accept.png'
       },
       {
-        action: 'ignore',
+        action: 'Decline',
         title: 'Ignore it',
-        icon: '/delete.png'
+        icon: '../src/images/decline-hi.png'
       }
     ]
   }
@@ -29,11 +29,11 @@ self.addEventListener('notificationclick', (event) => {
     return;
   }
   switch (event.action) {
-    case 'show':
-      console.log('User wants to see more');
+    case 'Accept':
+      window.location.href = `http://www.google.com`;
       break;
-    case 'ignore':
-      console.log('User wants to ignore the notification');
+    case 'Decline':
+      Notification.close();
       break;
     default:
       console.log(`The ${event.action} action is unknown`);

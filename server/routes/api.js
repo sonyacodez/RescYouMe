@@ -92,11 +92,11 @@ router.post('/alert', async (req, res) => {
       ${currentUser.name} is located at ${currentUser.location.address}.`,
     body: '',
     buttons: [{
-      title: "Yes, get me there"
-      // iconUrl: "/path/to/yesIcon.png"
+      title: "Accept",
+      iconUrl: "../../src/images/accept.png"
     }, {
-      title: "Get out of my way"
-      // iconUrl: "/path/to/noIcon.png"
+      title: "Decline",
+      iconUrl: "../../src/images/decline-hi.png"
     }],
     link: 'https://rescyoume-app.herokuapp.com/sos',
     icon: 'https://tpmbc.com/wp-content/uploads/2018/02/TrailCondition.png'

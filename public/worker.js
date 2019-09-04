@@ -31,7 +31,7 @@ self.addEventListener('notificationclick', (event) => {
   switch (event.action) {
     case 'Accept':
       event.waitUntil(
-        clients.openWindow(`www.google.com`)
+        clients.openWindow(`sos`)
       );
       break;
     case 'Decline':

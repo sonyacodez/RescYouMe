@@ -8,13 +8,11 @@ self.addEventListener('push', event => {
     actions: [
       {
         action: 'Accept',
-        title: 'Show it',
-        icon: '../src/images/accept.png'
+        title: 'ACCEPT'
       },
       {
         action: 'Decline',
-        title: 'Ignore it',
-        icon: '../src/images/decline-hi.png'
+        title: 'DECLINE'
       }
     ]
   }
@@ -24,16 +22,12 @@ self.addEventListener('push', event => {
 })
 
 self.addEventListener('notificationclick', (event) => {
-  if (!event.action) {
-    console.log('No button clicked');
-    return;
-  }
   switch (event.action) {
     case 'Accept':
-      window.location.href = `http://www.google.com`;
+      event.waitUntil(clients.openWindow(`sos`));
       break;
     case 'Decline':
-      Notification.close();
+      event.notification.close();
       break;
     default:
       console.log(`The ${event.action} action is unknown`);

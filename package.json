@@ -79,7 +79,7 @@
   },
   "scripts": {
     "react": "node scripts/start.js",
-    "start": "node scripts/build.js && node server.js ",
+    "start": "node server.js",
     "build" : "react-scripts build",
     "build-react": "node scripts/build.js",
     "test": "node scripts/test.js"

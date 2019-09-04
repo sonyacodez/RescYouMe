@@ -25,9 +25,7 @@ class App extends Component {
     this.state = { name: "" }
   }
   
-  updateCondition = name => this.setState({ name }, function(){
-    console.log(this.state.name)
-  })
+  updateCondition = name => this.setState({ name });
 
   render() {
     const name = this.state.name

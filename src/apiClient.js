@@ -15,7 +15,6 @@ class ApiClient {
     findUser = async(name, email) => await axios.get(`${this.URLname}/existingUser/${name}/${email}`);
 
     addNewUser = async( name, email, latitude, longitude, address, subscriptionObject) => {
-        // const subscription = await JSON.parse(subscriptionObject)
         const newUser = {
             name,
             email,

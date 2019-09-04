@@ -4,12 +4,12 @@ import Register from './components/Register/SignUp.js';
 import Sos from './components/Sos/Sos';
 import UserProfile from './components/UserProfile/UserProfile'
 import Emergency from './components/Emergency/Emergency'
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
+import { BrowserRouter as Router, Route} from 'react-router-dom'
 // import Register from './components/Register';
 import '../src/styles/style.css'
 //Material UI
 import AppBar from '@material-ui/core/AppBar';
-import Button from '@material-ui/core/Button';
+// import Button from '@material-ui/core/Button';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import ButtonAppBar from './components/materialComps/appBar'
 import { observer, inject } from 'mobx-react';

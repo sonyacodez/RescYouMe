@@ -93,17 +93,10 @@ router.post('/alert', async (req, res) => {
       link: 'https://rescyoume-app.herokuapp.com/sos',
       icon: 'https://tpmbc.com/wp-content/uploads/2018/02/TrailCondition.png'
   })
-  console.log(message)
-
   otherUsers.map(async(el) => {
-      try {
-          const notify = await webpush.sendNotification( el.subscriptionObject, message )
-          console.log(notify)
-      } 
+      try { await webpush.sendNotification( el.subscriptionObject, message ) } 
       catch (e) { console.error(e) }
   })
 })
-
-
 
 module.exports = router

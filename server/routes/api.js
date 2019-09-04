@@ -10,10 +10,10 @@ dotenv.config()
 const publicKey = process.env.PUBLIC_PUSH_KEY || ''
 const privateKey = process.env.PRIVATE_PUSH_KEY || ''
 
-router.get('/existingUser', (req,res) => {
-  let email = req.body.email
-  let name = req.body.name
-  User.findOne({ email, name }).exec((err,user) => { err ? res.send(err) : res.send(user) })
+router.get('/existingUser/:name/:email', (req,res) => {
+  let email = req.params.email
+  let name = req.params.name
+  User.findOne({ email, name }).exec((err,user) => err ? res.send(err) : res.send(user))
 });
 
 router.get('/userContacts/:id', (req,res) => {
@@ -56,7 +56,9 @@ router.delete('/deleteUserContact/:id', (req,res) => {
 
 //this post route saves user's device link
 router.post('/subscribe', async (req, res) => {
+  console.log(req.body)
   const newUser = new User( req.body )
+  console.log(newUser)
   try {
     await newUser.save()
     if (!newUser) throw new Error('User not saved')
@@ -69,7 +71,13 @@ router.post('/subscribe', async (req, res) => {
 })
 
 router.put("/updateUser/:id", (req,res) => {
-  User.findOneAndUpdate({ _id: req.params.id }, req.body, (err,body) => res.end())
+  const subscriptionObject = req.body.subscriptionObject
+  const location = {
+    latitude: req.body.latitude,
+    longitude: req.body.longitude,
+    address: req.body.address
+  }
+  User.findOneAndUpdate({ _id: req.params.id }, { location, subscriptionObject }, (err,body) => res.end())
 })
 
 //the actual push notification route
@@ -78,13 +86,16 @@ router.post('/alert', async (req, res) => {
   webpush.setVapidDetails('mailto:mail@mail.com', publicKey, privateKey)
   const { endpoint } = req.body
   const otherUsers = await User.find({ 'subscriptionObject.endpoint': { $ne: endpoint } })
-  const currentUser = await User.find({ endpoint })
+  console.log(otherUsers)
+  const currentUser = await User.findOne({ 'subscriptionObject.endpoint.type': { endpoint } })
+  console.log(currentUser)
   const message = JSON.stringify({
       title: `Your fellow human, ${currentUser.name}, needs your help ASAP! 
       ${currentUser.name} is located at ${currentUser.location.address}.`,
       body: '',
       icon: 'https://tpmbc.com/wp-content/uploads/2018/02/TrailCondition.png'
   })
+  console.log(message)
 
   otherUsers.map(async(el) => {
       try {

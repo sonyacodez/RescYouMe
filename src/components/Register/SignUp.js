@@ -19,10 +19,7 @@ class SignUp extends Component {
         }
     }
 
-
-
     addUserData = async () => {
-
         if (!this.state.name || !this.state.email) { return alert('please fill empty fields') }
 
         await navigator.geolocation.getCurrentPosition(pos => {
@@ -32,30 +29,35 @@ class SignUp extends Component {
 
         const publicVapidKey = "BJ0EZi8Bbg3qs7GFg1t9ItYQTu9XyRC2e1Goph9BabRVq6M9nFdmz--aAokvfbq9T9lkerpvTOf0Npv9hvJ4N2k";
         const register = await navigator.serviceWorker.register("/worker.js", { scope: "/" });
-
-        const sub = {
+        const endpoint = await register.pushManager.subscribe({
             userVisibleOnly: true,
             applicationServerKey: urlBase64ToUint8Array(publicVapidKey)
-        }
-        let endpoint
-        try {
-            endpoint = await register.pushManager.subscribe(sub)
+        })
 
-        } catch (error) {
-            debugger
-        }
         const subscription = JSON.stringify(endpoint)
         let existingUser = await apiClient.findUser(this.state.name, this.state.email);
 
         if (existingUser.data) {
             this.props.UserStore.updateCurrentUserID(existingUser.data._id)
-            await apiClient.updateUser(subscription)
+            await navigator.geolocation.getCurrentPosition(async (pos) => {
+                const coords = pos.coords
+                const addressCoded = await apiClient.getDecodedAddress(coords.latitude, coords.longitude)
+                const address = addressCoded.data.results[0].formatted_address
+                await apiClient.updateUser(coords.latitude, coords.longitude, address, subscription)
+            })
         }
 
         else {
-            let user = await apiClient.addNewUser(this.state.name, this.state.email, subscription)
-            this.props.UserStore.updateCurrentUserID(user.data._id)
-        };
+            const s = this.state
+            await navigator.geolocation.getCurrentPosition(async (pos) => {
+                const coords = pos.coords
+                const addressCoded = await apiClient.getDecodedAddress(coords.latitude, coords.longitude)
+                const address = addressCoded.data.results[0].formatted_address
+                await apiClient.addNewUser(s.name, s.email, coords.latitude, coords.longitude, address, subscription)
+                const newUser = await apiClient.findUser(s.name, s.email)
+                this.props.UserStore.updateCurrentUserID(newUser.data._id)
+            })
+        }
         this.setRedirect()
     }
 
@@ -78,12 +80,10 @@ class SignUp extends Component {
                     <span id="nameHeader">Your Name: </span>
                     <TextField id="nameInput" label="name" name="name" type="text" placeholder="Type a name" onChange={this.saveUserData} />
                 </div>
-
                 <div id="emailContainer">
                     <span id="emailHeader">Your Email: </span>
                     <TextField id="emailInput" label="email" name="email" type="text" placeholder="Type an email" onChange={this.saveUserData} />
                 </div>
-
                 {this.renderRedirect()}
                 <Button id="registerButton" variant="contained" color="primary" onClick={this.addUserData}>Enter RescYouMe</Button>
             </div>

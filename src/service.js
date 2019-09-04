@@ -43,7 +43,7 @@ export const run = async () => {
       console.log('Sending push')
       // (6) send request to server
       await axios.post(
-        'https://rescyoume-app.herokuapp.com/subscribe',
+        'http://localhost:4000/subscribe',
         subscription,
         {
           headers: {
@@ -64,6 +64,7 @@ export const run = async () => {
 
 export const alert = async () => {
   // get current service worker registration data
+  console.log('inside alert function in service.js')
   const currentReg = await navigator.serviceWorker.getRegistration()
   // get subscription details
   const currentSub = currentReg
@@ -71,7 +72,7 @@ export const alert = async () => {
     : ''
   // send request to server
   if (currentSub) {
-    await axios.post('https://rescyoume-app.herokuapp.com/alert', currentSub, {
+    await axios.post('http://localhost:4000/alert', currentSub, {
       headers: {
         'content-type': 'application/json'
       }
@@ -80,3 +81,6 @@ export const alert = async () => {
   }
   return false
 }
+
+// 'https://rescyoume-app.herokuapp.com/subscribe'
+// 'https://rescyoume-app.herokuapp.com/alert'

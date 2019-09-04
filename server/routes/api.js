@@ -90,10 +90,6 @@ router.post('/alert', async (req, res) => {
   const message = JSON.stringify({
     title: `Your fellow human, ${currentUser.name}, needs your help ASAP!`,
     body: `${currentUser.name} is located at ${currentUser.location.address}.`,
-    // }, {
-    //   title: "Decline",
-    //   iconUrl: "../../src/images/decline-hi.png"
-    // }],
     link: 'https://rescyoume-app.herokuapp.com/sos',
     icon: 'https://tpmbc.com/wp-content/uploads/2018/02/TrailCondition.png'
   })

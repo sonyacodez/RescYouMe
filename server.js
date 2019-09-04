@@ -10,7 +10,7 @@ const path = require('path')
 
 dotenv.config()
 const dbUrl =
-  // process.env.MONGO_URL || 
+  process.env.MONGO_URL || 
   'mongodb://localhost:27017/secureDB'
 const port = process.env.PORT || 4000
 
@@ -39,11 +39,11 @@ mongoose
 
 //     next()
 // })
+app.use(express.static(path.join(__dirname, './build')))
 app.use('/', api)
 
 // serve React app from client/build
-app.use(express.static(path.join(__dirname, './build')))
-app.get('/index.html', (req, res) => {
+app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname + './build/index.html'))
 })
 

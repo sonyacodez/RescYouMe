@@ -44,7 +44,7 @@ class SignUp extends Component {
         let existingUser = await apiClient.findUser(this.state.name, this.state.email);
 
         if (existingUser.data) {
-            // this.props.UserStore.updateCurrentUserID(existingUser.data._id)
+            this.props.UserStore.updateCurrentUserID(existingUser.data._id)
             await navigator.geolocation.getCurrentPosition(async (pos) => {
                 const coords = pos.coords
                 const addressCoded = await apiClient.getDecodedAddress(coords.latitude, coords.longitude)
@@ -62,8 +62,8 @@ class SignUp extends Component {
                 const address = addressCoded.data.results[0].formatted_address
                 await apiClient.addNewUser(s.name, s.email, coords.latitude, coords.longitude, address, subscription)
                 this.updateSignUpState(address)
-                // const newUser = await apiClient.findUser(s.name, s.email)
-                // this.props.UserStore.updateCurrentUserID(newUser.data._id)
+                const newUser = await apiClient.findUser(s.name, s.email)
+                this.props.UserStore.updateCurrentUserID(newUser.data._id)
             })
         }
         this.setRedirect()

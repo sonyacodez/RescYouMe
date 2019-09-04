@@ -91,13 +91,13 @@ router.post('/alert', async (req, res) => {
     title: `Your fellow human, ${currentUser.name}, needs your help ASAP! 
       ${currentUser.name} is located at ${currentUser.location.address}.`,
     body: '',
-    buttons: [{
+    buttons: {
       title: "Accept",
-      iconUrl: "../../src/images/accept.png"
-    }, {
-      title: "Decline",
-      iconUrl: "../../src/images/decline-hi.png"
-    }],
+      iconUrl: "../../src/images/accept.png"},
+    // }, {
+    //   title: "Decline",
+    //   iconUrl: "../../src/images/decline-hi.png"
+    // }],
     link: 'https://rescyoume-app.herokuapp.com/sos',
     icon: 'https://tpmbc.com/wp-content/uploads/2018/02/TrailCondition.png'
   })

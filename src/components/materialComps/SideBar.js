@@ -8,7 +8,7 @@ import Divider from '@material-ui/core/Divider';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import MenuIcon from '@material-ui/icons/Menu';
-import { BrowserRouter as Link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import PersonIcon from '@material-ui/icons/Person';
 // import AssignmentIndIcon from '@material-ui/icons/AssignmentInd';
 import DirectionsRunIcon from '@material-ui/icons/DirectionsRun';
@@ -52,16 +52,28 @@ export default function SwipeableTemporaryDrawer() {
           <img src={Logo} style={{width: "250px", height: "250px"}} />
           <Divider style={{marginTop:"-40px"}}/>
           <ListItem style={{marginTop:"20px"}}>
-             <ListItemIcon style={{marginRight:"-20px"}}><PersonIcon /></ListItemIcon>
-             <Button ><Link className="links" to="/userProfile" style={{color:"black", textDecorationLine:"none"}}>user Profile</Link></Button>
+             <ListItemIcon style={{marginRight:"-20px"}}>
+                <PersonIcon />
+             </ListItemIcon>
+             <Button >
+               <Link className="links" to="/userProfile" style={{color:"black", textDecorationLine:"none"}}>user Profile</Link>
+             </Button>
           </ListItem>
           <ListItem>
-             <ListItemIcon style={{marginRight:"-20px"}}><DirectionsRunIcon /></ListItemIcon>
-             <Button ><Link className="links" to="/emergency" style={{color:"black", textDecorationLine:"none"}}>emergency</Link></Button>
+             <ListItemIcon style={{marginRight:"-20px"}}>
+               <DirectionsRunIcon />
+             </ListItemIcon>
+             <Button >
+               <Link className="links" to="/emergency" style={{color:"black", textDecorationLine:"none"}}>emergency</Link>
+             </Button>
           </ListItem>
           <ListItem>
-             <ListItemIcon style={{marginRight:"-30px"}}><PublicIcon /></ListItemIcon>
-             <Button ><Link className="links" to="/sos" style={{color:"black", textDecorationLine:"none"}}>SoS</Link></Button>
+             <ListItemIcon style={{marginRight:"-30px"}}>
+                <PublicIcon />
+             </ListItemIcon>
+             <Button >
+                <Link className="links" to="/sos" style={{color:"black", textDecorationLine:"none"}}>SoS</Link>
+             </Button>
           </ListItem>
       </List>
     </div>

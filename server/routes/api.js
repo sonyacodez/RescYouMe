@@ -56,7 +56,9 @@ router.delete('/deleteUserContact/:id', (req,res) => {
 
 //this post route saves user's device link
 router.post('/subscribe', async (req, res) => {
+  console.log(req.body)
   const newUser = new User( req.body )
+  console.log(newUser)
   try {
     await newUser.save()
     if (!newUser) throw new Error('User not saved')

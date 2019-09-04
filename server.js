@@ -44,7 +44,7 @@ app.use('/', api)
 
 // serve React app from client/build
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, './build/index.html'))
+  res.sendFile(path.join(__dirname, 'build/index.html'))
 })
 
 app.listen(port, function(){

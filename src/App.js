@@ -25,20 +25,22 @@ class App extends Component {
     this.state = { address: "" }
   }
   
-  updateCondition = address => this.setState({ address })
+  updateCondition = address => this.setState({ address }, function(){
+    console.log(this.state.address)
+  })
 
   render() {
     const address = this.state.address
     return (
       <Router>
-        {address ?<ButtonAppBar /> : null}
+        {address !== "" ?<ButtonAppBar /> : null}
         <MuiThemeProvider theme={theme}>
           <AppBar position="static"></AppBar>
         </MuiThemeProvider>
         <Route path="/" exact render={() => <SignUp updateCondition={this.updateCondition} />} />
-        {address ? <Route path="/sos" exact render={() => <Sos />} />: <Redirect to='/' />}
-        {address ? <Route path="/userProfile" exact render={() => <UserProfile />} />: <Redirect to='/' />}
-        {address ? <Route path="/emergency" exact render={() => <Emergency />} /> : <Redirect to='/' />}
+        {address !== "" ? <Route path="/sos" exact render={() => <Sos />} />: <Redirect to='/' />}
+        {address !== "" ? <Route path="/userProfile" exact render={() => <UserProfile />} />: <Redirect to='/' />}
+        {address !== "" ? <Route path="/emergency" exact render={() => <Emergency />} /> : <Redirect to='/' />}
       </Router>
     )
   }

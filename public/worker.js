@@ -10,3 +10,7 @@ self.addEventListener('push', event => {
       self.registration.showNotification(data.title, options)
     );
 })
+
+self.addEventListener('notificationclick', () => {
+  console.log('Clicked!');
+});

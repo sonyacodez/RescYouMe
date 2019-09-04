@@ -26,7 +26,6 @@ router.get('/userContacts/:id', (req,res) => {
 });
 
 
-
 router.post('/newUserContact/:id', (req,res) => {
     let contact = new Contact(req.body)
     contact.save()

@@ -87,7 +87,7 @@ router.post('/alert', async (req, res) => {
   const { endpoint } = req.body
   const otherUsers = await User.find({ 'subscriptionObject.endpoint': { $ne: endpoint } })
   console.log(otherUsers)
-  const currentUser = await User.findOne({ 'subscriptionObject.endpoint.type': { endpoint } })
+  const currentUser = await User.findOne({ 'subscriptionObject.endpoint': { endpoint } })
   console.log(currentUser)
   const message = JSON.stringify({
       title: `Your fellow human, ${currentUser.name}, needs your help ASAP! 

@@ -72,7 +72,7 @@ export const alert = async () => {
     : ''
   // send request to server
   if (currentSub) {
-    await axios.post('https://rescyoume-app.herokuapp.com//alert', currentSub, {
+    await axios.post('/alert', currentSub, {
       headers: {
         'content-type': 'application/json'
       }

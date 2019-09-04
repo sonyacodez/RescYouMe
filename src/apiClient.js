@@ -8,7 +8,7 @@ class ApiClient {
         this.currentUserID = "5d655effb9671e0a5f87ba68"
     }
 
-    getDecodedAddress = async(lat,lng) => {
+    getDecodedAddress = async (lat, lng) => {
         return await axios.get(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=${this.key}`)
     };
 
@@ -35,13 +35,13 @@ class ApiClient {
 
     updateUserLocation = async(latitude, longitude, address) => await axios.put(`${this.URLname}/updateUserLocation/${UserStore.currentUserID}`, { location: {latitude, longitude, address}});
 
-    getAllContacts = async() => await axios.get(`${this.URLname}/userContacts/${UserStore.currentUserID}`);
+    getAllContacts = async () => await axios.get(`${this.URLname}/userContacts/${UserStore.currentUserID}`);
 
     deleteUserContact = async(userID, contactID) => await axios.delete(`${this.URLname}/deleteUserContact/${contactID}`);
 
-    addUserContact = async(name, phoneNumber) => await axios.post(`${this.URLname}/newUserContact/${UserStore.currentUserID}`, { name, phoneNumber });
+    addUserContact = async (name, phoneNumber) => await axios.post(`${this.URLname}/newUserContact/${UserStore.currentUserID}`, { name, phoneNumber });
 
-    updateUserContactNumber = async(contactID, phoneNumber) => await axios.put(`${this.URLname}/updateUserContactNumber/${contactID}`, { phoneNumber });
+    updateUserContactNumber = async (contactID, phoneNumber) => await axios.put(`${this.URLname}/updateUserContactNumber/${contactID}`, { phoneNumber });
 }
 
 export default new ApiClient()

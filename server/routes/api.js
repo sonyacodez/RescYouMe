@@ -10,72 +10,73 @@ dotenv.config()
 const publicKey = process.env.PUBLIC_PUSH_KEY || ''
 const privateKey = process.env.PRIVATE_PUSH_KEY || ''
 
-router.get('/existingUser/:name/:email', (req,res) => {
+router.get('/existingUser/:name/:email', (req, res) => {
   let email = req.params.email
   let name = req.params.name
-  User.findOne({ email, name }).exec((err,user) => err ? res.send(err) : res.send(user))
+  User.findOne({ email, name }).exec((err, user) => err ? res.send(err) : res.send(user))
 });
 
-router.get('/userContacts/:id', (req,res) => {
+router.get('/userContacts/:id', (req, res) => {
   // User.findOne({ _id: req.params.id }).exec((err,user) => console.log(user.emergencyContacts))
   User.findOne({ _id: req.params.id })
-      .populate('emergencyContacts')
-      .exec((err,user) => {
-        console.log(user)
-        res.send(user.emergencyContacts)})
-});
-
-
-
-router.post('/newUserContact/:id', (req,res) => {
-    let contact = new Contact(req.body)
-    contact.save()
-    User.findOne({_id: req.params.id}).exec((err,user) => {
-        user.emergencyContacts.push(contact)
-        user.save()
-        res.end()
+    .populate('emergencyContacts')
+    .exec((err, user) => {
+      console.log(user)
+      res.send(user.emergencyContacts)
     })
 });
 
-router.put("/updateUserLocation/:id", (req,res) => {
-  User.findOneAndUpdate({ _id: req.params.id }, req.body, (err,body) => res.end())
+
+
+router.post('/newUserContact/:id', (req, res) => {
+  let contact = new Contact(req.body)
+  contact.save()
+  User.findOne({ _id: req.params.id }).exec((err, user) => {
+    user.emergencyContacts.push(contact)
+    user.save()
+    res.end()
+  })
+});
+
+router.put("/updateUserLocation/:id", (req, res) => {
+  User.findOneAndUpdate({ _id: req.params.id }, req.body, (err, body) => res.end())
 })
 
-router.put("/updateUserContactNumber/:id", (req,res) => {
-    Contact.findOneAndUpdate({ _id: req.params.id }, req.body, (err,body) => res.end())
+router.put("/updateUserContactNumber/:id", (req, res) => {
+  Contact.findOneAndUpdate({ _id: req.params.id }, req.body, (err, body) => res.end())
 })
 
-router.delete('/deleteUserContact/:id', (req,res) => {
-    Contact.findOneAndRemove({ _id: req.params.id }, (err,body) => res.end())
-    // User.findOne({ _id: req.params.id }, (err,body) => res.end())
-// router.delete('/deleteUserContact/:id', (req,res) => {
-    // Contact.findOneAndRemove({ _id: req.params.id }, (err,body) => res.end())
+router.delete('/deleteUserContact/:id', (req, res) => {
+  Contact.findOneAndRemove({ _id: req.params.id }, (err, body) => res.end())
+  // User.findOne({ _id: req.params.id }, (err,body) => res.end())
+  // router.delete('/deleteUserContact/:id', (req,res) => {
+  // Contact.findOneAndRemove({ _id: req.params.id }, (err,body) => res.end())
 });
 
 //FOR PUSH NOTIFICATIONS
 
 //this post route saves user's device link
 router.post('/subscribe', async (req, res) => {
-  const newUser = new User( req.body )
+  const newUser = new User(req.body)
   try {
     await newUser.save()
     if (!newUser) throw new Error('User not saved')
     res.status(201)
-  } 
-  catch(e) {
+  }
+  catch (e) {
     console.log(e.errmsg)
     res.status(400).send(e.errmsg)
   }
 })
 
-router.put("/updateUser/:id", (req,res) => {
+router.put("/updateUser/:id", (req, res) => {
   const subscriptionObject = req.body.subscriptionObject
   const location = {
     latitude: req.body.latitude,
     longitude: req.body.longitude,
     address: req.body.address
   }
-  User.findOneAndUpdate({ _id: req.params.id }, { location, subscriptionObject }, (err,body) => res.end())
+  User.findOneAndUpdate({ _id: req.params.id }, { location, subscriptionObject }, (err, body) => res.end())
 })
 
 //the actual push notification route
@@ -87,15 +88,22 @@ router.post('/alert', async (req, res) => {
   const otherUsers = await User.find({ 'subscriptionObject': { $ne: subscription } })
   const currentUser = await User.findOne({ "subscriptionObject.endpoint": endpoint })
   const message = JSON.stringify({
-      title: `Your fellow human, ${currentUser.name}, needs your help ASAP! 
+    title: `Your fellow human, ${currentUser.name}, needs your help ASAP! 
       ${currentUser.name} is located at ${currentUser.location.address}.`,
-      body: '',
-      link: 'https://rescyoume-app.herokuapp.com/sos',
-      icon: 'https://tpmbc.com/wp-content/uploads/2018/02/TrailCondition.png'
+    body: '',
+    buttons: [{
+      title: "Yes, get me there"
+      // iconUrl: "/path/to/yesIcon.png"
+    }, {
+      title: "Get out of my way"
+      // iconUrl: "/path/to/noIcon.png"
+    }],
+    link: 'https://rescyoume-app.herokuapp.com/sos',
+    icon: 'https://tpmbc.com/wp-content/uploads/2018/02/TrailCondition.png'
   })
-  otherUsers.map(async(el) => {
-      try { await webpush.sendNotification( el.subscriptionObject, message ) } 
-      catch (e) { console.error(e) }
+  otherUsers.map(async (el) => {
+    try { await webpush.sendNotification(el.subscriptionObject, message) }
+    catch (e) { console.error(e) }
   })
 })
 

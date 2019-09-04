@@ -62,7 +62,9 @@ class SignUp extends Component {
         this.setRedirect()
     }
 
-    setRedirect = () => this.setState({ redirect: true });
+    setRedirect = () => this.setState({ redirect: true }, function(){
+        console.log(this.state.redirect)
+    });
 
     renderRedirect = () => {
         if (this.state.redirect) {

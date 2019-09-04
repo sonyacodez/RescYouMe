@@ -56,9 +56,7 @@ router.delete('/deleteUserContact/:id', (req,res) => {
 
 //this post route saves user's device link
 router.post('/subscribe', async (req, res) => {
-  console.log(req.body)
   const newUser = new User( req.body )
-  console.log(newUser)
   try {
     await newUser.save()
     if (!newUser) throw new Error('User not saved')
@@ -84,15 +82,15 @@ router.put("/updateUser/:id", (req,res) => {
 
 router.post('/alert', async (req, res) => {
   webpush.setVapidDetails('mailto:mail@mail.com', publicKey, privateKey)
-  const { endpoint } = req.body
-  const otherUsers = await User.find({ 'subscriptionObject.endpoint': { $ne: endpoint } })
-  console.log(otherUsers)
-  const currentUser = await User.findOne({ 'subscriptionObject.endpoint': { endpoint } })
-  console.log(currentUser)
+  const subscription = req.body
+  const endpoint = subscription.endpoint
+  const otherUsers = await User.find({ 'subscriptionObject': { $ne: subscription } })
+  const currentUser = await User.findOne({ "subscriptionObject.endpoint": endpoint })
   const message = JSON.stringify({
       title: `Your fellow human, ${currentUser.name}, needs your help ASAP! 
       ${currentUser.name} is located at ${currentUser.location.address}.`,
       body: '',
+      link: 'https://rescyoume-app.herokuapp.com/sos',
       icon: 'https://tpmbc.com/wp-content/uploads/2018/02/TrailCondition.png'
   })
   console.log(message)

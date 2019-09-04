@@ -75,7 +75,7 @@ class SignUp extends Component {
     render() {
         return (
             <div id="signupContainer">
-                <img id="logo" src={Logo} style={{}} />
+                <img id="logo" src={Logo} style={{}} alt=''/>
                 <h3 id="signUpHeader">Register</h3>
                 <div id="nameContainer">
                     <span id="nameHeader">Your Name: </span>

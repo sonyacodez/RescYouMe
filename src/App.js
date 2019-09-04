@@ -22,25 +22,25 @@ const theme = createMuiTheme({ palette: { primary: { main: '#EAC563' } } });
 class App extends Component {
   constructor(){
     super()
-    this.state = { address: "" }
+    this.state = { name: "" }
   }
   
-  updateCondition = address => this.setState({ address }, function(){
-    console.log(this.state.address)
+  updateCondition = name => this.setState({ name }, function(){
+    console.log(this.state.name)
   })
 
   render() {
-    const address = this.state.address
+    const name = this.state.name
     return (
       <Router>
-        {address !== "" ?<ButtonAppBar /> : null}
+        {name !== "" ?<ButtonAppBar /> : null}
         <MuiThemeProvider theme={theme}>
           <AppBar position="static"></AppBar>
         </MuiThemeProvider>
         <Route path="/" exact render={() => <SignUp updateCondition={this.updateCondition} />} />
-        {address !== "" ? <Route path="/sos" exact render={() => <Sos />} />: <Redirect to='/' />}
-        {address !== "" ? <Route path="/userProfile" exact render={() => <UserProfile />} />: <Redirect to='/' />}
-        {address !== "" ? <Route path="/emergency" exact render={() => <Emergency />} /> : <Redirect to='/' />}
+        {name !== "" ? <Route path="/sos" exact render={() => <Sos />} />: <Redirect to='/' />}
+        {name !== "" ? <Route path="/userProfile" exact render={() => <UserProfile />} />: <Redirect to='/' />}
+        {name !== "" ? <Route path="/emergency" exact render={() => <Emergency />} /> : <Redirect to='/' />}
       </Router>
     )
   }

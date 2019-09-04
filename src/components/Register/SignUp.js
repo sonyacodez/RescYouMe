@@ -16,19 +16,16 @@ class SignUp extends Component {
         super()
         this.state = {
             redirect: false,
+            name: "",
+            email: "",
             address: ""
         }
     }
 
-    updateSignUpState = address => {
-        this.setState({ address }, function(){
-            console.log(this.state.address)
-        })
-        this.props.updateCondition(this.state.address)
-    };
+    updateSignUpState = () => this.props.updateCondition(this.state.name);
 
     addUserData = async () => {
-        if (!this.state.name || !this.state.email) { return alert('please fill empty fields') }
+        !this.state.name || !this.state.email ? alert('please fill empty fields') : this.updateSignUpState()
 
         await navigator.geolocation.getCurrentPosition(pos => {
             const coords = pos.coords
@@ -52,7 +49,6 @@ class SignUp extends Component {
                 const addressCoded = await apiClient.getDecodedAddress(coords.latitude, coords.longitude)
                 const address = addressCoded.data.results[0].formatted_address
                 await apiClient.updateUser(coords.latitude, coords.longitude, address, subscription)
-                this.updateSignUpState(address)
             })
         }
 
@@ -63,7 +59,6 @@ class SignUp extends Component {
                 const addressCoded = await apiClient.getDecodedAddress(coords.latitude, coords.longitude)
                 const address = addressCoded.data.results[0].formatted_address
                 await apiClient.addNewUser(s.name, s.email, coords.latitude, coords.longitude, address, subscription)
-                this.updateSignUpState(address)
                 const newUser = await apiClient.findUser(s.name, s.email)
                 this.props.UserStore.updateCurrentUserID(newUser.data._id)
             })

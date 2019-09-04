@@ -30,7 +30,7 @@ self.addEventListener('notificationclick', (event) => {
   }
   switch (event.action) {
     case 'Accept':
-      window.location.href = `http://www.google.com`;
+      self.location.href = `http://www.google.com`;
       break;
     case 'Decline':
       Notification.close();

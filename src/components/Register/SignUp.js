@@ -21,7 +21,9 @@ class SignUp extends Component {
     }
 
     updateSignUpState = address => {
-        this.setState({ address })
+        this.setState({ address }, function(){
+            console.log(this.state.address)
+        })
         this.props.updateCondition(this.state.address)
     };
 

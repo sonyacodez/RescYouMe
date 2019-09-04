@@ -20,6 +20,7 @@ class SignUp extends Component {
     }
 
     addUserData = async () => {
+        console.log('inside addUserdata function')
         if (!this.state.name || !this.state.email) { return alert('please fill empty fields') }
 
         await navigator.geolocation.getCurrentPosition(pos => {

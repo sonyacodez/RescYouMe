@@ -1,8 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const User = require('../models/user')
-const UserPush = require('../models/userPush')
-// const Contact = require('../models/Contact')
+const Contact = require('../models/contact')
 const webpush = require('web-push')
 const dotenv = require('dotenv')
 dotenv.config()
@@ -11,100 +10,93 @@ dotenv.config()
 const publicKey = process.env.PUBLIC_PUSH_KEY || ''
 const privateKey = process.env.PRIVATE_PUSH_KEY || ''
 
-router.post('/existingUser', (req, res) => {
-  let email = req.body.email
-  let name = req.body.name
-  User.findOne({ email, name }).exec((err, user) => {
-    if (err) {
-      res.send(err)
-    }
-    res.send(user)
-  })
+router.get('/existingUser/:name/:email', (req,res) => {
+  let email = req.params.email
+  let name = req.params.name
+  User.findOne({ email, name }).exec((err,user) => err ? res.send(err) : res.send(user))
 });
 
-router.post('/user', (req, res) => {
-  let newUser = new User(req.body)
-  newUser.save()
-  res.send(newUser)
+router.get('/userContacts/:id', (req,res) => {
+  // User.findOne({ _id: req.params.id }).exec((err,user) => console.log(user.emergencyContacts))
+  User.findOne({ _id: req.params.id })
+      .populate('emergencyContacts')
+      .exec((err,user) => {
+        console.log(user)
+        res.send(user.emergencyContacts)})
 });
 
-router.get('/userContacts/:id', (req, res) => {
-  // User.findOne({ _id: req.params.id })
-  //     .populate('emergencyContacts')
-  //     .exec((err,user) => res.send(user.emergencyContacts))
+
+
+router.post('/newUserContact/:id', (req,res) => {
+    let contact = new Contact(req.body)
+    contact.save()
+    User.findOne({_id: req.params.id}).exec((err,user) => {
+        user.emergencyContacts.push(contact)
+        user.save()
+        res.end()
+    })
 });
 
-router.post('/newUserContact/:id', (req, res) => {
-  // let contact = new Contact(req.body)
-  // contact.save()
-  // User.findOne({_id: req.params.id}).exec((err,user) => {
-  //     user.emergencyContacts.push(contact)
-  //     user.save()
-  //     res.end()
-  // })
-});
-
-router.put("/updateUserContactNumber/:id", (req, res) => {
-  // Contact.findOneAndUpdate({ _id: req.params.id }, req.body, (err,body) => res.end())
+router.put("/updateUserLocation/:id", (req,res) => {
+  User.findOneAndUpdate({ _id: req.params.id }, req.body, (err,body) => res.end())
 })
 
-router.delete('/deleteUserContact/:id', (req, res) => {
-  Contact.findOneAndRemove({ _id: req.params.id }, (err, body) => res.end())
-  User
-  // Contact.findOneAndRemove({ _id: req.params.id }, (err,body) => res.end())
+router.put("/updateUserContactNumber/:id", (req,res) => {
+    Contact.findOneAndUpdate({ _id: req.params.id }, req.body, (err,body) => res.end())
+})
+
+router.delete('/deleteUserContact/:id', (req,res) => {
+    Contact.findOneAndRemove({ _id: req.params.id }, (err,body) => res.end())
+    // User.findOne({ _id: req.params.id }, (err,body) => res.end())
+// router.delete('/deleteUserContact/:id', (req,res) => {
+    // Contact.findOneAndRemove({ _id: req.params.id }, (err,body) => res.end())
 });
 
 //FOR PUSH NOTIFICATIONS
 
 //this post route saves user's device link
 router.post('/subscribe', async (req, res) => {
-  const newUser = new UserPush({
-    subscriptionObject: req.body
-  })
+  const newUser = new User( req.body )
   try {
-    // (8) save new user
     await newUser.save()
-    // if not saved - throw error
     if (!newUser) throw new Error('User not saved')
-    // otherwise - respond with OK
     res.status(201)
-  } catch (e) {
-    // if error - console and respond with error
+  } 
+  catch(e) {
     console.log(e.errmsg)
     res.status(400).send(e.errmsg)
   }
+})
+
+router.put("/updateUser/:id", (req,res) => {
+  const subscriptionObject = req.body.subscriptionObject
+  const location = {
+    latitude: req.body.latitude,
+    longitude: req.body.longitude,
+    address: req.body.address
+  }
+  User.findOneAndUpdate({ _id: req.params.id }, { location, subscriptionObject }, (err,body) => res.end())
 })
 
 //the actual push notification route
 
 router.post('/alert', async (req, res) => {
   webpush.setVapidDetails('mailto:mail@mail.com', publicKey, privateKey)
-  const { endpoint } = req.body
-  const otherUsers = await User.find({ 'subscriptionObject.endpoint': { $ne: endpoint } })
-  const currentUser = await User.find({ endpoint })
+  const subscription = req.body
+  const endpoint = subscription.endpoint
+  const otherUsers = await User.find({ 'subscriptionObject': { $ne: subscription } })
+  const currentUser = await User.findOne({ "subscriptionObject.endpoint": endpoint })
   const message = JSON.stringify({
-    title: `Your fellow human, ${currentUser.name}, needs your help ASAP! ${currentUser.name} is located at ${currentUser.location.address}.`,
-    body: '',
-    buttons: [{
-      title: "Accept",
-      // iconUrl: "/path/to/yesIcon.png"
-    }, {
-      title: "Ignore",
-      // iconUrl: "/path/to/noIcon.png"
-    }],
-    icon: 'https://tpmbc.com/wp-content/uploads/2018/02/TrailCondition.png'
+      title: `Your fellow human, ${currentUser.name}, needs your help ASAP! 
+      ${currentUser.name} is located at ${currentUser.location.address}.`,
+      body: '',
+      link: 'https://rescyoume-app.herokuapp.com/sos',
+      icon: 'https://tpmbc.com/wp-content/uploads/2018/02/TrailCondition.png'
   })
-
-  otherUsers.map(async (el) => {
-    try {
-      const notify = await webpush.sendNotification(el.subscriptionObject, message)
-      console.log(notify)
-    } catch (e) {
-      console.error(e)
-    }
+  otherUsers.map(async(el) => {
+      try { await webpush.sendNotification( el.subscriptionObject, message ) } 
+      catch (e) { console.error(e) }
   })
 })
-
-
 
 module.exports = router

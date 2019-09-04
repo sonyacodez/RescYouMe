@@ -66,11 +66,7 @@ class SignUp extends Component {
         console.log(this.state.redirect)
     });
 
-    renderRedirect = () => {
-        if (this.state.redirect) {
-            return <Redirect to='/emergency' />
-        }
-    }
+    renderRedirect = () => this.state.redirect ? <Redirect to='/emergency' /> : null
 
     saveUserData = event => this.setState({ [event.target.name]: event.target.value });
 

@@ -16,10 +16,7 @@ class UserStore {
         })
     };
 
-    @action updateCurrentUserID = (_userID) => {
-        this.currentUserID = _userID
-        console.log(this.currentUserID)
-    }
+    @action updateCurrentUserID = (_userID) => this.currentUserID = _userID
 
     @action updateVictimLocation = (latitude, longitude) => {
         this.latitude = latitude

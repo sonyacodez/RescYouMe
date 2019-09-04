@@ -13,14 +13,19 @@ import { urlBase64ToUint8Array } from '../../client'
 
 class SignUp extends Component {
     constructor() {
-        super();
+        super()
         this.state = {
-            redirect: false
+            redirect: false,
+            address: ""
         }
     }
 
+    updateSignUpState = address => {
+        this.setState({ address })
+        this.props.updateCondition(this.state.address)
+    };
+
     addUserData = async () => {
-        console.log('inside addUserdata function')
         if (!this.state.name || !this.state.email) { return alert('please fill empty fields') }
 
         await navigator.geolocation.getCurrentPosition(pos => {
@@ -39,12 +44,13 @@ class SignUp extends Component {
         let existingUser = await apiClient.findUser(this.state.name, this.state.email);
 
         if (existingUser.data) {
-            this.props.UserStore.updateCurrentUserID(existingUser.data._id)
+            // this.props.UserStore.updateCurrentUserID(existingUser.data._id)
             await navigator.geolocation.getCurrentPosition(async (pos) => {
                 const coords = pos.coords
                 const addressCoded = await apiClient.getDecodedAddress(coords.latitude, coords.longitude)
                 const address = addressCoded.data.results[0].formatted_address
                 await apiClient.updateUser(coords.latitude, coords.longitude, address, subscription)
+                this.updateSignUpState(address)
             })
         }
 
@@ -55,8 +61,9 @@ class SignUp extends Component {
                 const addressCoded = await apiClient.getDecodedAddress(coords.latitude, coords.longitude)
                 const address = addressCoded.data.results[0].formatted_address
                 await apiClient.addNewUser(s.name, s.email, coords.latitude, coords.longitude, address, subscription)
-                const newUser = await apiClient.findUser(s.name, s.email)
-                this.props.UserStore.updateCurrentUserID(newUser.data._id)
+                this.updateSignUpState(address)
+                // const newUser = await apiClient.findUser(s.name, s.email)
+                // this.props.UserStore.updateCurrentUserID(newUser.data._id)
             })
         }
         this.setRedirect()

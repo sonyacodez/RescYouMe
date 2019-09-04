@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Register from './components/Register/SignUp.js';
+import SignUp from './components/Register/SignUp.js';
 // import EmergencyContacts from './components/UserProfile';
 import Sos from './components/Sos/Sos';
 import UserProfile from './components/UserProfile/UserProfile'
@@ -20,17 +20,25 @@ const theme = createMuiTheme({ palette: { primary: { main: '#EAC563' } } });
 @inject('UserStore')
 @observer
 class App extends Component {
+  constructor(){
+    super()
+    this.state = { address: "" }
+  }
+  
+  updateCondition = address => this.setState({ address })
+
   render() {
+    const address = this.state.address
     return (
       <Router>
-        {this.props.UserStore.currentUserID ?<ButtonAppBar /> : null}
+        {address ?<ButtonAppBar /> : null}
         <MuiThemeProvider theme={theme}>
           <AppBar position="static"></AppBar>
         </MuiThemeProvider>
-        <Route path="/" exact render={() => <Register />} />
-        {this.props.UserStore.currentUserID ? <Route path="/sos" exact render={() => <Sos />} />: <Redirect to='/' />}
-        {this.props.UserStore.currentUserID ?  <Route path="/userProfile" exact render={() => <UserProfile />} />: <Redirect to='/' />}
-        {this.props.UserStore.currentUserID ?  <Route path="/emergency" exact render={() => <Emergency />} /> : <Redirect to='/' />}
+        <Route path="/" exact render={() => <SignUp updateCondition={this.updateCondition} />} />
+        {address ? <Route path="/sos" exact render={() => <Sos />} />: <Redirect to='/' />}
+        {address ? <Route path="/userProfile" exact render={() => <UserProfile />} />: <Redirect to='/' />}
+        {address ? <Route path="/emergency" exact render={() => <Emergency />} /> : <Redirect to='/' />}
       </Router>
     )
   }

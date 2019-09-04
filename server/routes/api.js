@@ -90,9 +90,6 @@ router.post('/alert', async (req, res) => {
   const message = JSON.stringify({
     title: `Your fellow human, ${currentUser.name}, needs your help ASAP!`,
     body: `${currentUser.name} is located at ${currentUser.location.address}.`,
-    buttons: [{
-      title: "Accept",
-      iconUrl: "../../src/images/accept.png"}],
     // }, {
     //   title: "Decline",
     //   iconUrl: "../../src/images/decline-hi.png"

@@ -3,11 +3,11 @@ console.log('Loaded service worker!');
 
 self.addEventListener('push', event => {
     const data = event.data.json()
-    const options = {
-      body: data.body,
-      buttons: data.buttons
-    }
+    const body = data.body,
+    const actions = [{
+      action: "Accept", title: 'Accept'
+    }]
     event.waitUntil(
-      self.registration.showNotification(data.title, options)
+      self.registration.showNotification(data.title, body, actions)
     );
 })

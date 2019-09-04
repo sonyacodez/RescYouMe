@@ -27,15 +27,14 @@ router.get('/userContacts/:id', (req, res) => {
 });
 
 
-
-router.post('/newUserContact/:id', (req, res) => {
-  let contact = new Contact(req.body)
-  contact.save()
-  User.findOne({ _id: req.params.id }).exec((err, user) => {
-    user.emergencyContacts.push(contact)
-    user.save()
-    res.end()
-  })
+router.post('/newUserContact/:id', (req,res) => {
+    let contact = new Contact(req.body)
+    contact.save()
+    User.findOne({_id: req.params.id}).exec((err,user) => {
+        user.emergencyContacts.push(contact)
+        user.save()
+        res.end()
+    })
 });
 
 router.put("/updateUserLocation/:id", (req, res) => {

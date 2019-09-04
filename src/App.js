@@ -15,26 +15,11 @@ import ButtonAppBar from './components/materialComps/appBar'
 import { observer, inject } from 'mobx-react';
 import { Redirect } from 'react-router-dom'
 
+const theme = createMuiTheme({ palette: { primary: { main: '#EAC563' } } });
 
-const theme = createMuiTheme(
-  {
-    palette: {
-      primary: {
-        main: '#EAC563',
-      }
-    }
-  }
-);
 @inject('UserStore')
 @observer
 class App extends Component {
-  constructor() {
-    super()
-    this.state = {
-
-    }
-  }
-
   render() {
     return (
       <Router>

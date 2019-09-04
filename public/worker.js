@@ -30,10 +30,12 @@ self.addEventListener('notificationclick', (event) => {
   }
   switch (event.action) {
     case 'Accept':
-      self.location.href = `http://www.google.com`;
+      event.waitUntil(
+        clients.openWindow(`www.google.com`)
+      );
       break;
     case 'Decline':
-      Notification.close();
+      event.notification.close();
       break;
     default:
       console.log(`The ${event.action} action is unknown`);

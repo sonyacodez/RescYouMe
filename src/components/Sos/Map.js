@@ -109,11 +109,11 @@ export class CurrentLocation extends React.Component {
 
     return (
       <div>
+        <a className='button' href={`https://www.google.com/maps/dir/?api=1&destination=32.062133,34.773523`}>Get Directions</a>
         <div style={style} ref="map">
           Loading map...
         </div>
         {this.renderChildren()}
-        <a className='button' href={`https://www.google.com/maps/dir/?api=1&destination=32.062133,34.773523`}>Get Directions</a>
       </div>
 
     );

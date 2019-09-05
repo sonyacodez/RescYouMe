@@ -27,7 +27,6 @@ export class Sos extends Component {
   };
 
   render() {
-    const address = this.props.match.params.address
     return (
         <div>
             <div>

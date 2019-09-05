@@ -13,19 +13,16 @@ class Address extends Component {
     }
 
     componentDidMount() {
-            navigator.geolocation.getCurrentPosition(pos => {
-              const coords = pos.coords;
-              this.setState({
-                  lat:coords.latitude,
-                  lng:coords.longitude
-                
-              });
-              this.GetAddress();
-            });
-          }
-        
-    
-    
+      navigator.geolocation.getCurrentPosition(pos => {
+        const coords = pos.coords;
+        this.setState({
+            lat:coords.latitude,
+            lng:coords.longitude
+          
+        });
+        this.GetAddress();
+      });
+    }
 
     GetAddress = async () => {
         let data =  await ApiClient.getDecodedAddress(this.state.lat, this.state.lng)

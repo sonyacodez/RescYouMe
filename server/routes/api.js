@@ -27,14 +27,14 @@ router.get('/userContacts/:id', (req, res) => {
 });
 
 
-router.post('/newUserContact/:id', (req,res) => {
-    let contact = new Contact(req.body)
-    contact.save()
-    User.findOne({_id: req.params.id}).exec((err,user) => {
-        user.emergencyContacts.push(contact)
-        user.save()
-        res.end()
-    })
+router.post('/newUserContact/:id', (req, res) => {
+  let contact = new Contact(req.body)
+  contact.save()
+  User.findOne({ _id: req.params.id }).exec((err, user) => {
+    user.emergencyContacts.push(contact)
+    user.save()
+    res.end()
+  })
 });
 
 router.put("/updateUserLocation/:id", (req, res) => {
@@ -92,10 +92,21 @@ router.post('/alert', async (req, res) => {
     link: 'https://rescyoume-app.herokuapp.com/sos',
     icon: 'https://tpmbc.com/wp-content/uploads/2018/02/TrailCondition.png'
   })
-  otherUsers.map(async (el) => {
-    try { await webpush.sendNotification(el.subscriptionObject, message) }
-    catch (e) { console.error(e) }
-  })
+  const maxLatitude = currentUser.location.latitude + 2400
+  const minLatitude = currentUser.location.latitude - 2400
+  const maxLongitude = currentUser.location.longitude + 1920
+  const minLongitude = currentUser.location.longitude - 1920
+
+  otherUsers
+    .filter(a =>
+      a.location.latitude < maxLatitude &&
+      a.location.latitude > minLatitude &&
+      a.location.longitude < maxLongitude &&
+      a.location.longitude > minLongitude)
+    .map(async (el) => {
+      try { await webpush.sendNotification(el.subscriptionObject, message) }
+      catch (e) { console.error(e) }
+    })
 })
 
 module.exports = router

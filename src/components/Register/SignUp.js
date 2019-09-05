@@ -28,8 +28,7 @@ class SignUp extends Component {
         !this.state.name || !this.state.email ? alert('please fill empty fields') : this.updateSignUpState()
 
         localStorage.setItem("name", this.state.name)
-        this.updateSignUpState()
-        
+
         await navigator.geolocation.getCurrentPosition(pos => {
             const coords = pos.coords
             this.props.UserStore.updateVictimLocation(coords.latitude.toFixed(6), coords.longitude.toFixed(6))

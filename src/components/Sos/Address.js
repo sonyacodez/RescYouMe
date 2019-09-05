@@ -18,7 +18,6 @@ class Address extends Component {
         this.setState({
             lat:coords.latitude,
             lng:coords.longitude
-          
         });
         this.GetAddress();
       });

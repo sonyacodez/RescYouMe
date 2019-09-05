@@ -25,6 +25,8 @@ class App extends Component {
     super()
     this.state = { name: "" }
   }
+
+  componentWillMount = () => localStorage.name ? this.setState({ name: localStorage.name }) : null;
   
   updateCondition = name => this.setState({ name });
 

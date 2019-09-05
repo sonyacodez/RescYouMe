@@ -23,12 +23,6 @@ class SignUp extends Component {
         }
     }
 
-    componentDidMount = () => {
-        console.log('inside componentdidmount')
-        localStorage.name ? this.setState({ name: localStorage.name }, function(){console.log('hi')}) : null
-        this.updateSignUpState()
-    }
-
     updateSignUpState = () => this.props.updateCondition(this.state.name);
 
     addUserData = async () => {

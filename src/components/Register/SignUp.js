@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-expressions */
 import React, { Component } from 'react';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
@@ -28,8 +29,7 @@ class SignUp extends Component {
         !this.state.name || !this.state.email ? alert('please fill empty fields') : this.updateSignUpState()
 
         localStorage.setItem("name", this.state.name)
-        this.updateSignUpState()
-        
+
         await navigator.geolocation.getCurrentPosition(pos => {
             const coords = pos.coords
             this.props.UserStore.updateVictimLocation(coords.latitude.toFixed(6), coords.longitude.toFixed(6))

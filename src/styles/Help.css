@@ -3,7 +3,12 @@
     grid-template-areas: 
     "I"
     "H";
-    margin-top: 80px
+    margin-top: 80px;
+    cursor: pointer;
+}
+
+#helpContainer:active{
+    transform: scale(0.9)
 }
 
 #helpIcon {

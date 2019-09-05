@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-expressions */
 import React, { Component } from 'react';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
@@ -20,6 +21,12 @@ class SignUp extends Component {
             email: "",
             address: ""
         }
+    }
+
+    componentDidMount = () => {
+        console.log('inside componentdidmount')
+        localStorage.name ? this.setState({ name: localStorage.name }, function(){console.log('hi')}) : null
+        this.updateSignUpState()
     }
 
     updateSignUpState = () => this.props.updateCondition(this.state.name);

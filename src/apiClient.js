@@ -12,6 +12,10 @@ class ApiClient {
         return await axios.get(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=${this.key}`)
     };
 
+    getLatLongOfAddress = async(address) => {
+        return await axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=${this.key}`)
+    }
+
     findUser = async(name, email) => await axios.get(`${this.URLname}/existingUser/${name}/${email}`);
 
     addNewUser = async( name, email, latitude, longitude, address, subscriptionObject) => {

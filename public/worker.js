@@ -1,10 +1,10 @@
 /* eslint-disable no-restricted-globals */
 console.log('Loaded service worker!');
 
-// let data
+let data
 
 self.addEventListener('push', event => {
-  const data = event.data.json()
+  data = event.data.json()
   const options = {
     body: data.body,
     actions: [
@@ -26,8 +26,8 @@ self.addEventListener('push', event => {
 self.addEventListener('notificationclick', (event) => {
   switch (event.action) {
     case 'Accept':
-      // const victimAddress = data.body.split(" ").slice(4)
-      event.waitUntil(clients.openWindow(`sos`));
+      const victimAddress = data.body.split(" ").slice(4)
+      event.waitUntil(clients.openWindow(`sos/${victimAddress}`));
       break;
     case 'Decline':
       event.notification.close();

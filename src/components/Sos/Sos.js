@@ -46,11 +46,10 @@ export class Sos extends Component {
   }
 
   render() {
-    const address = this.props.match.params.address
     return (
         <div>
             <div>
-      <CurrentLocation address={address} centerAroundCurrentLocation google={this.props.google}>
+      <CurrentLocation address={this.props.match.params.address ? this.props.match.params.address : null} centerAroundCurrentLocation google={this.props.google}>
         <Marker onClick={this.onMarkerClick} name={'current location'} />
         {this.state.doesVictimExist ? <Marker position={{ lat: this.state.victimLat, lng: this.state.victimLng}} /> : null}
         <InfoWindow
@@ -64,9 +63,9 @@ export class Sos extends Component {
         </InfoWindow>
       </CurrentLocation>
       </div>
-      <div>
-      <Address address={address}/>
-      </div>
+        <div>
+          <Address address={this.props.match.params.address ? this.props.match.params.address : null}/>
+        </div>
       </div>
     );
   }

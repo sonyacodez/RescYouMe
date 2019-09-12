@@ -23,7 +23,10 @@ const theme = createMuiTheme({ palette: { primary: { main: '#EAC563' } } });
 class App extends Component {
   constructor(){
     super()
-    this.state = { name: "" }
+    this.state = { 
+      name: "",
+      victimAddress: ""
+    }
   }
 
   componentWillMount = () => localStorage.name ? this.setState({ name: localStorage.name }) : null;
@@ -39,7 +42,7 @@ class App extends Component {
           <AppBar position="static"></AppBar>
         </MuiThemeProvider>
         <Route path="/" exact render={() => <SignUp updateCondition={this.updateCondition} />} />
-        {name !== "" ? <Route path="/sos" exact render={() => <Sos />} />: <Redirect to='/' />}
+        {/* {name !== "" ? <Route path="/sos" exact render={() => <Sos />} />: <Redirect to='/' />} */}
         {name !== "" ? <Route path="/sos/:address" exact render={({ match }) => <Sos match={match} />}/> : <Redirect to='/' />}
         {name !== "" ? <Route path="/userProfile" exact render={() => <UserProfile />} />: <Redirect to='/' />}
         {name !== "" ? <Route path="/emergency" exact render={() => <Emergency />} /> : <Redirect to='/' />}

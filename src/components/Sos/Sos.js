@@ -32,8 +32,7 @@ export class Sos extends Component {
   };
 
   componentWillMount = async() => {
-    const unformattedMessage = this.props.match.params.message.split(" ")
-    const address = unformattedMessage.slice(4).join("")
+    const address = this.props.match.params.address
     if(address){
       const coordinatesObject = await apiClient.getLatLongOfAddress(address)
       const coordinates = coordinatesObject.data.results[0].geometry.location
@@ -42,15 +41,13 @@ export class Sos extends Component {
   }
 
   render() {
-    const unformattedMessage = this.props.match.params.message.split(" ")
-    const address = unformattedMessage.slice(4).join("")
-    const name = unformattedMessage.slice(0,1)
+    const address = this.props.match.params.address
     return (
       <div>
         <div>
           <CurrentLocation address={address ? address : null} centerAroundCurrentLocation google={this.props.google}>
             <Marker onClick={this.onMarkerClick} name={`Your Current Location`} />
-            {this.state.doesVictimExist ? <Marker position={{ lat: this.state.victimLat, lng: this.state.victimLng}} onClick={this.onMarkerClick} name={`${name}'s Current Location`}/> : null}
+            {this.state.doesVictimExist ? <Marker position={{ lat: this.state.victimLat, lng: this.state.victimLng}} onClick={this.onMarkerClick} name={`${this.props.match.params.name} Current Location`}/> : null}
             <InfoWindow marker={this.state.activeMarker} visible={this.state.showingInfoWindow} onClose={this.onClose}>
               <div>
                 <h4>{this.state.selectedPlace.name}</h4>

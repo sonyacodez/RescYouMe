@@ -39,7 +39,7 @@ export class Sos extends Component {
     const address = this.props.match.params.address
     if(address){
       const coordinatesObject = apiClient.getLatLongOfAddress(address)
-      const coordinates = coordinatesObject.results.geometry.location
+      const coordinates = coordinatesObject.results[0].geometry.location
       this.setState({ victimLat: coordinates.lat, victimLng: coordinates.lng, doesVictimExist: true })
     }
   }

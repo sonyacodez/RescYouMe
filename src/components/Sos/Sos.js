@@ -51,11 +51,15 @@ export class Sos extends Component {
       <CurrentLocation address={this.props.match.params.address ? this.props.match.params.address : null} centerAroundCurrentLocation google={this.props.google}>
         <Marker onClick={this.onMarkerClick} name={'current location'} />
         {this.state.doesVictimExist ? <Marker position={{ lat: this.state.victimLat, lng: this.state.victimLng}} /> : null}
-        <InfoWindow marker={this.state.activeMarker} visible={this.state.showingInfoWindow} onClose={this.onClose}>
-          <div>
-            <h4>{this.state.selectedPlace.name ? this.state.selectedPlace.name : null}</h4>
-          </div>
-        </InfoWindow>
+        {this.state.selectedPlace.name ? <InfoWindow 
+          marker={this.state.activeMarker} 
+          visible={this.state.showingInfoWindow} 
+          onClose={this.onClose}>
+            <div>
+              <h4>{this.state.selectedPlace.name}</h4>
+            </div>
+          </InfoWindow>
+        : null}
       </CurrentLocation>
       </div>
         <div>

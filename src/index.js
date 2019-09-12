@@ -8,7 +8,3 @@ import { Provider } from 'mobx-react'
 const store = {UserStore}
 
 ReactDOM.render(<Provider {...store}><App /></Provider>, document.getElementById('root'));
-
-// run();
-
-

@@ -32,7 +32,8 @@ export class Sos extends Component {
   };
 
   componentWillMount = async() => {
-    const address = this.props.match.params.address
+    const unformattedMessage = this.props.match.params.message.split(" ")
+    const address = unformattedMessage.slice(4).join("")
     if(address){
       const coordinatesObject = await apiClient.getLatLongOfAddress(address)
       const coordinates = coordinatesObject.data.results[0].geometry.location

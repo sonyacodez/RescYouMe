@@ -35,10 +35,10 @@ export class Sos extends Component {
     }
   };
 
-  componentWillMount = () => {
+  componentWillMount = async() => {
     const address = this.props.match.params.address
     if(address){
-      const coordinatesObject = apiClient.getLatLongOfAddress(address)
+      const coordinatesObject = await apiClient.getLatLongOfAddress(address)
       console.log(coordinatesObject)
       const coordinates = coordinatesObject.results[0].geometry.location
       this.setState({ victimLat: coordinates.lat, victimLng: coordinates.lng, doesVictimExist: true })

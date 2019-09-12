@@ -8,30 +8,26 @@ export class Sos extends Component {
   constructor(){
     super()
     this.state = {
+      showingInfoWindow: false,
+      activeMarker: {},
+      selectedPlace: {},
       victimLat: 0,
       victimLng: 0,
       doesVictimExist: false
     }
   }
-  state = {
-    showingInfoWindow: false,
-    activeMarker: {},
-    selectedPlace: {}
-  };
 
-  onMarkerClick = (props, marker, e) =>
-    this.setState({
-      selectedPlace: props,
+  onMarkerClick = (props, marker) => {
+    this.setState({ 
+      selectedPlace: props, 
       activeMarker: marker,
       showingInfoWindow: true
-    });
-
-  onClose = props => {
-    if (this.state.showingInfoWindow) {
-      this.setState({
-        showingInfoWindow: false,
-        activeMarker: null
-      });
+    })
+  }
+  
+  onClose = () => {
+    if(this.state.showingInfoWindow){
+      this.setState({ showingInfoWindow: false, activeMarker: null });
     }
   };
 
@@ -46,18 +42,18 @@ export class Sos extends Component {
 
   render() {
     return (
+      <div>
         <div>
-            <div>
-      <CurrentLocation address={this.props.match.params.address ? this.props.match.params.address : null} centerAroundCurrentLocation google={this.props.google}>
-        <Marker onClick={this.onMarkerClick} name={'current location'} />
-        {this.state.doesVictimExist ? <Marker position={{ lat: this.state.victimLat, lng: this.state.victimLng}} /> : null}
-        <InfoWindow marker={this.state.activeMarker} visible={this.state.showingInfoWindow} onClose={this.onClose}>
-          <div>
-            {/* <h4>{this.state.selectedPlace.name}</h4> */}
-          </div>
-        </InfoWindow>
-      </CurrentLocation>
-      </div>
+          <CurrentLocation address={this.props.match.params.address ? this.props.match.params.address : null} centerAroundCurrentLocation google={this.props.google}>
+            <Marker onClick={this.onMarkerClick} name={'current location'} />
+            {this.state.doesVictimExist ? <Marker position={{ lat: this.state.victimLat, lng: this.state.victimLng}} /> : null}
+            <InfoWindow marker={this.state.activeMarker} visible={this.state.showingInfoWindow} onClose={this.onClose}>
+              <div>
+                <h4>{this.state.selectedPlace.name}</h4>
+              </div>
+            </InfoWindow>
+          </CurrentLocation>
+        </div>
         <div>
           <Address address={this.props.match.params.address ? this.props.match.params.address : null}/>
         </div>

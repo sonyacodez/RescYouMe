@@ -26,7 +26,7 @@ self.addEventListener('push', event => {
 self.addEventListener('notificationclick', (event) => {
   switch (event.action) {
     case 'Accept':
-      const victimAddress = data.body.split(" ").slice(4).join(" ")
+      const victimAddress = data.body.split(" ").slice(4).join("")
       event.waitUntil(clients.openWindow(`sos/${victimAddress}`));
       break;
     case 'Decline':

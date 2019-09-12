@@ -35,7 +35,7 @@ class Address extends Component {
     render() {
       return (
         <div style={{marginLeft:"20%", marginTop:"5%"}}>
-            {this.state.victimAddress ? <span style={{marginLeft:"6%"}}>DISTRESS CALL FROM {this.state.victimAddress}</span> : null}
+            {this.state.victimAddress ? <span style={{marginLeft:"6%"}}>DISTRESS CALL FROM {this.state.victimAddress.split(",").join(" ")}</span> : null}
         </div>
       )
     }

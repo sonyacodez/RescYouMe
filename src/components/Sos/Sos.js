@@ -58,7 +58,7 @@ export class Sos extends Component {
           onClose={this.onClose}
         >
           <div>
-            <h4>{this.state.selectedPlace.name}</h4>
+            {/* <h4>{this.state.selectedPlace.name}</h4> */}
           </div>
         </InfoWindow>
       </CurrentLocation>

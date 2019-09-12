@@ -41,11 +41,10 @@ export class Sos extends Component {
   }
 
   render() {
-    const address = this.props.match.params.address
     return (
       <div>
         <div>
-          <CurrentLocation address={address ? address : null} centerAroundCurrentLocation google={this.props.google}>
+          <CurrentLocation position={{ lat: this.state.victimLat, lng: this.state.victimLng }} centerAroundCurrentLocation google={this.props.google}>
             <Marker onClick={this.onMarkerClick} name={`Your Current Location`} />
             {this.state.doesVictimExist ? <Marker position={{ lat: this.state.victimLat, lng: this.state.victimLng}} onClick={this.onMarkerClick} name={`Fellow Human Location`}/> : null}
             <InfoWindow marker={this.state.activeMarker} visible={this.state.showingInfoWindow} onClose={this.onClose}>
@@ -56,7 +55,7 @@ export class Sos extends Component {
           </CurrentLocation>
         </div>
         <div>
-          <Address address={address ? address : null}/>
+          {this.props.match.params.address ? <Address address={this.props.match.params.address}/> : null}
         </div>
       </div>
     );

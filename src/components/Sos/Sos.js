@@ -39,7 +39,6 @@ export class Sos extends Component {
     const address = this.props.match.params.address
     if(address){
       const coordinatesObject = await apiClient.getLatLongOfAddress(address)
-      console.log(coordinatesObject)
       const coordinates = coordinatesObject.data.results[0].geometry.location
       this.setState({ victimLat: coordinates.lat, victimLng: coordinates.lng, doesVictimExist: true })
     }
@@ -52,13 +51,9 @@ export class Sos extends Component {
       <CurrentLocation address={this.props.match.params.address ? this.props.match.params.address : null} centerAroundCurrentLocation google={this.props.google}>
         <Marker onClick={this.onMarkerClick} name={'current location'} />
         {this.state.doesVictimExist ? <Marker position={{ lat: this.state.victimLat, lng: this.state.victimLng}} /> : null}
-        <InfoWindow
-          marker={this.state.activeMarker}
-          visible={this.state.showingInfoWindow}
-          onClose={this.onClose}
-        >
+        <InfoWindow marker={this.state.activeMarker} visible={this.state.showingInfoWindow} onClose={this.onClose}>
           <div>
-            {/* <h4>{this.state.selectedPlace.name}</h4> */}
+            <h4>{this.state.selectedPlace.name ? this.state.selectedPlace.name : null}</h4>
           </div>
         </InfoWindow>
       </CurrentLocation>

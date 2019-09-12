@@ -40,7 +40,7 @@ export class Sos extends Component {
     if(address){
       const coordinatesObject = await apiClient.getLatLongOfAddress(address)
       console.log(coordinatesObject)
-      const coordinates = coordinatesObject.results[0].geometry.location
+      const coordinates = coordinatesObject.data.results[0].geometry.location
       this.setState({ victimLat: coordinates.lat, victimLng: coordinates.lng, doesVictimExist: true })
     }
   }

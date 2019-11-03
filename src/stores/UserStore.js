@@ -2,8 +2,8 @@ import { observable, action } from "mobx";
 
 class UserStore {
     @observable currentUser = ""
-    @observable latitude = ""
-    @observable longitude = ""
+    @observable latitude = "55.7558"
+    @observable longitude = "37.6173"
     @observable currentUserID = ""
 
     @action updateUserKeys = e => this.setState({ [e.target.name]: e.target.value });

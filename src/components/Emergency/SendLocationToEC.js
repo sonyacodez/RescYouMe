@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-expressions */
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import apiClient from '../../apiClient'
 import { inject } from 'mobx-react';
 import LocalPostOfficeTwoToneIcon from '@material-ui/icons/LocalPostOfficeTwoTone';

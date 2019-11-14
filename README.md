@@ -1,5 +1,5 @@
 
-## RescYou Me - A security phone app helping those in distress.
+## RescYouMe - A security phone app helping those in distress
 
 A security phone app that encourages the involvement of the app's community in helping those in distress.
 It gives the user the ability to notify app users in his/her area to come to their aid, as well as play a fake ringtone, text his location, and call the police.
@@ -27,6 +27,7 @@ It gives the user the ability to notify app users in his/her area to come to the
             - The exact address of the distressed user.
             - A large map showing 2 points -- the location of the helping user and the location of the distressed user.
             - A button "Get Directions" below the map. When clicked, this button takes the helping user directly to google maps showing the directions between the helping user and the distressed user.
+
 - By clicking on the "Call Police" button on the Emergency tab, the user's phone calls the police to notify that he is in trouble.
 - By clicking on the "Location" button on the Emergency tab, the user automatically sends a text message with his name and location prefilled in the text field to his emergency contacts.
 - By clicking on the "Ringtone" button on the Emergency tab, the user's phone plays a ringtone, giving the user the ability to pretend to answer a phonecall.

@@ -2,7 +2,7 @@
 ## RescYouMe - A security phone app helping those in distress
 
 A security phone app that encourages the involvement of the app's community in helping those in distress.
-It gives the user the ability to notify app users in his/her area to come to their aid, as well as play a fake ringtone, text his location, and call the police.
+It gives the user the ability to notify app users in his area to come to their aid, as well as play a fake ringtone, text his location, and call the police.
 
 ### Built With:
 
